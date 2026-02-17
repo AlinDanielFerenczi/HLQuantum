@@ -1,0 +1,13 @@
+[HLQuantum]
+Copyright 2026 [Alin Daniel Ferenczi]
+
+This product includes software developed at [Alin Daniel Ferenczi].
+
+This product acknowledges the use of the following third-party software:
+- NVIDIA CUDA-Q (Apache License 2.0)
+- Qiskit (Apache License 2.0)
+- Cirq (Apache License 2.0)
+- PennyLane (Apache License 2.0)
+- Amazon Braket SDK (Apache License 2.0)
+
+The above software is used under the terms of their respective licenses.

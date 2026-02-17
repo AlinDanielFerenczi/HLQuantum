@@ -1,0 +1,30 @@
+site_name: HLQuantum Documentation
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: cyan
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.append(".")
+
+nav:
+  - Home: index.md
+  - API Reference:
+      - Core: api/core.md
+      - Backends: api/backends.md
+      - Transpiler: api/transpiler.md
+      - Mitigation: api/mitigation.md
+      - Algorithms: api/algorithms.md
+  - GPU Acceleration: gpu.md
