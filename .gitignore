@@ -93,3 +93,7 @@ dmypy.json
 # editors
 .vscode/
 .idea/
+
+# Virtual environment
+venv/
+bin/
