@@ -4,13 +4,13 @@
 
 ## Supported Backends
 
-| Backend | Framework | Install extra |
-|---------|-----------|---------------|
-| `CudaQBackend` | [NVIDIA CUDA-Q](https://nvidia.github.io/cuda-quantum) | `pip install hlquantum[cudaq]` |
-| `QiskitBackend` | [IBM Qiskit](https://qiskit.org) | `pip install hlquantum[qiskit]` |
-| `CirqBackend` | [Google Cirq](https://quantumai.google/cirq) | `pip install hlquantum[cirq]` |
-| `BraketBackend` | [Amazon Braket](https://aws.amazon.com/braket/) | `pip install hlquantum[braket]` |
-| `PennyLaneBackend` | [Xanadu PennyLane](https://pennylane.ai) | `pip install hlquantum[pennylane]` |
+| Backend            | Framework                                              | Install extra                      |
+| ------------------ | ------------------------------------------------------ | ---------------------------------- |
+| `CudaQBackend`     | [NVIDIA CUDA-Q](https://nvidia.github.io/cuda-quantum) | `pip install hlquantum[cudaq]`     |
+| `QiskitBackend`    | [IBM Qiskit](https://qiskit.org)                       | `pip install hlquantum[qiskit]`    |
+| `CirqBackend`      | [Google Cirq](https://quantumai.google/cirq)           | `pip install hlquantum[cirq]`      |
+| `BraketBackend`    | [Amazon Braket](https://aws.amazon.com/braket/)        | `pip install hlquantum[braket]`    |
+| `PennyLaneBackend` | [Xanadu PennyLane](https://pennylane.ai)               | `pip install hlquantum[pennylane]` |
 
 ## Installation
 
@@ -31,11 +31,12 @@ pip install ".[dev]"
 ## Features
 
 - **Backend-Agnostic Circuits** — A single `QuantumCircuit` IR that translates to any supported framework.
-- **`@kernel` Decorator** — Write quantum logic as plain Python functions.
-- **One-Liner Execution** — `hlquantum.run(circuit, shots=1000)` with automatic backend resolution.
-- **Unified Results** — `ExecutionResult` with `.counts`, `.probabilities`, `.most_probable`, and `.expectation_value()`.
-- **GPU Acceleration** — Unified `GPUConfig` for GPU execution across CUDA-Q, Qiskit Aer, Cirq (qsim), and PennyLane (lightning.gpu).
-- **Lazy Imports** — Backends only import their dependencies when actually used.
+- **Quantum Pipelines** — Build modular architectures using ML-inspired `Layer` and `Sequential` models.
+- **Resilient Workflows** — Orchestrate complex executions with loops, branching, and state persistence (save/resume).
+- **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
+- **High-Level QML** — Keras-compatible `QuantumLayer` with auto-differentiation and TensorFlow Quantum support.
+- **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
+- **GPU Acceleration** — Unified `GPUConfig` across all backends.
 
 ## GPU Acceleration
 
@@ -59,13 +60,13 @@ gpu = GPUConfig(enabled=True, custatevec=True)
 
 ### GPU Support by Backend
 
-| Backend | GPU Library | Auto-selected target / device |
-|---------|-------------|-------------------------------|
-| `CudaQBackend` | CUDA-Q (native) | `"nvidia"`, `"nvidia-fp64"`, `"nvidia-mqpu"` |
-| `QiskitBackend` | qiskit-aer-gpu | `AerSimulator(device='GPU')` |
-| `CirqBackend` | qsimcirq | `QSimSimulator(use_gpu=True)` |
-| `PennyLaneBackend` | pennylane-lightning[gpu] | `"lightning.gpu"` |
-| `BraketBackend` | *(not available)* | *(cloud-managed hardware)* |
+| Backend            | GPU Library              | Auto-selected target / device                |
+| ------------------ | ------------------------ | -------------------------------------------- |
+| `CudaQBackend`     | CUDA-Q (native)          | `"nvidia"`, `"nvidia-fp64"`, `"nvidia-mqpu"` |
+| `QiskitBackend`    | qiskit-aer-gpu           | `AerSimulator(device='GPU')`                 |
+| `CirqBackend`      | qsimcirq                 | `QSimSimulator(use_gpu=True)`                |
+| `PennyLaneBackend` | pennylane-lightning[gpu] | `"lightning.gpu"`                            |
+| `BraketBackend`    | _(not available)_        | _(cloud-managed hardware)_                   |
 
 ### Per-Backend GPU Examples
 
@@ -93,13 +94,71 @@ cirq = CirqBackend(gpu_config=gpu)
 pl = PennyLaneBackend(gpu_config=gpu)
 ```
 
-### Detecting Available GPUs
-
 ```python
 from hlquantum import detect_gpus
 
 for gpu in detect_gpus():
     print(f"GPU {gpu['id']}: {gpu['name']} ({gpu['memory_total_gb']} GB)")
+```
+
+## Quantum Pipelines (ML-Style)
+
+Build complex circuits modularly by stacking layers:
+
+```python
+from hlquantum.layers import Sequential, GroverLayer, QFTLayer, RealAmplitudes
+
+# Stack algorithms and variational layers
+model = Sequential([
+    QFTLayer(num_qubits=4),
+    GroverLayer(num_qubits=4, target_states=["1010"]),
+    RealAmplitudes(num_qubits=4, reps=2)
+])
+
+# Compile to a single circuit
+circuit = model.build()
+```
+
+## Resilient Workflows
+
+Orchestrate complex execution flows with automatic state persistence and parallel execution.
+
+```python
+from hlquantum.workflows import Workflow, Parallel, Loop, Branch
+
+wf = Workflow(state_file="checkpoint.json", name="Discovery")
+
+# Add parallel paths
+wf.add(Parallel(circuit1, circuit2))
+
+# Add a loop
+wf.add(Loop(base_circuit, iterations=10))
+
+# Execute asynchronously (with optional throttling for rate-limits)
+import asyncio
+results = asyncio.run(wf.run(resume=True))
+
+# Export to Mermaid for visualization
+print(wf.to_mermaid())
+```
+
+## Quantum Machine Learning (QML)
+
+Integrate quantum layers into your standard Keras/TensorFlow models.
+
+```python
+import tensorflow as tf
+from hlquantum.qml import QuantumLayer, create_quantum_classifier
+
+# Build a hybrid model
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(8, activation='relu'),
+    QuantumLayer(my_parameterized_circuit), # Auto-detects TFQ or uses Parameter-Shift
+    tf.keras.layers.Dense(2, activation='softmax')
+])
+
+# Or use pre-built high-level models
+model = create_quantum_classifier(n_qubits=4, n_classes=2)
 ```
 
 ## Quick Start
@@ -209,8 +268,8 @@ print(sv)  # [0.707+0j, 0, 0, 0.707+0j]
 from hlquantum.mitigation import ThresholdMitigation
 
 result = hlquantum.run(
-    bell, 
-    transpile=True, 
+    bell,
+    transpile=True,
     mitigation=ThresholdMitigation(threshold=0.01)
 )
 
@@ -220,16 +279,26 @@ from hlquantum import algorithms
 # Foundational
 qft_circuit = algorithms.qft(num_qubits=4)
 bv_circuit = algorithms.bernstein_vazirani("1011")
-dj_circuit = algorithms.deutsch_jozsa(num_qubits=2, oracle=my_oracle)
 grover_circuit = algorithms.grover(num_qubits=3, target_states=["101"])
 
 # Classical Logic (Quantum Arithmetic)
-adder = algorithms.full_adder()
+adder = algorithms.half_adder()
 
-# Hybrid / Optimization (VQE)
-from hlquantum.algorithms.vqe import vqe_solve, hardware_efficient_ansatz
-ansatz = lambda p: hardware_efficient_ansatz(2, p)
-results = vqe_solve(ansatz, initial_params=[0.1, 0.2])
+# Variational & Optimization
+from hlquantum.algorithms import vqe_solve, qaoa_solve, gqe_solve
+
+# VQE with parameterized circuits
+res = vqe_solve(my_ansatz, initial_params=[0.1, 0.2])
+
+# QAOA for combinatorial optimization
+res = qaoa_solve(cost_hamiltonian, p=2)
+
+# GQE for generative modeling
+res = gqe_solve(ansatz, my_loss_fn)
+
+# Differentiable Programming
+from hlquantum.algorithms import parameter_shift_gradient
+grads = parameter_shift_gradient(circuit, {"theta": 0.5})
 ```
 
 ## Adding a Custom Backend
@@ -256,6 +325,14 @@ class MyBackend(Backend):
 pip install ".[dev]"
 pytest tests/ -v
 ```
+
+## Sponsors
+
+HLQuantum is made possible with the support of our sponsors. If you'd like to support this project, please reach out.
+
+|     | Sponsor                                        | Description                                     |
+| --- | ---------------------------------------------- | ----------------------------------------------- |
+|     | [**Venture Chain**](https://venture-chain.com) | Supporting initial development effort & release |
 
 ## License
 

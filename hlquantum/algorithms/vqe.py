@@ -15,7 +15,7 @@ from hlquantum.runner import run
 
 
 def vqe_solve(
-    ansatz_fn: Callable[[List[float]], Circuit],
+    ansatz: Union[Circuit, Callable[[List[float]], Circuit]],
     initial_params: List[float],
     optimizer: Optional[Callable] = None,
     shots: int = 1000,
@@ -25,8 +25,8 @@ def vqe_solve(
 
     Parameters
     ----------
-    ansatz_fn : Callable[[list[float]], Circuit]
-        A function that takes a list of parameters and returns an Ansatz Circuit.
+    ansatz : Circuit | Callable[[list[float]], Circuit]
+        A parameterized circuit or a function returning a circuit.
     initial_params : list[float]
         Starting parameters for the optimizer.
     optimizer : Callable, optional
@@ -44,11 +44,17 @@ def vqe_solve(
     try:
         from scipy.optimize import minimize
     except ImportError:
-        raise ImportError("scipy is required for vqe_solve. Install it with: pip install scipy")
+        res = None # Handle later or fail fast
 
     def objective(params):
-        circuit = ansatz_fn(params)
-        # Ensure measurements are present if requested
+        if isinstance(ansatz, Circuit):
+            # Map params list to the circuit's parameters
+            param_map = {p: params[i] for i, p in enumerate(ansatz.parameters)}
+            circuit = ansatz.bind_parameters(param_map)
+        else:
+            circuit = ansatz(params)
+            
+        # Ensure measurements are present
         if not any(g.name == "mz" for g in circuit.gates):
             circuit.measure_all()
             
@@ -57,13 +63,14 @@ def vqe_solve(
 
     # Use default COBYLA optimizer if none provided
     if optimizer is None:
+        from scipy.optimize import minimize
         res = minimize(objective, initial_params, method='COBYLA')
     else:
         res = optimizer(objective, initial_params)
 
     return {
-        "fun": getattr(res, "fun", res),
-        "x": getattr(res, "x", initial_params),
+        "fun": getattr(res, "fun", res) if res else 0.0,
+        "x": getattr(res, "x", initial_params) if res else initial_params,
         "raw": res
     }
 
