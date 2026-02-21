@@ -86,7 +86,7 @@ class CudaQBackend(Backend):
         gates = circuit.gates
 
         # Build a cudaq kernel dynamically
-        kernel_builder, qubits = cudaq.make_kernel()
+        kernel_builder = cudaq.make_kernel()
         qreg = kernel_builder.qalloc(num_qubits)
 
         for gate in gates:
@@ -116,7 +116,7 @@ class CudaQBackend(Backend):
             # Note: get_state typically works best without measurement gates
             # If the circuit has measurements, we might need a separate kernel without them
             if any(g.name == "mz" for g in gates):
-                sv_builder, _ = cudaq.make_kernel()
+                sv_builder = cudaq.make_kernel()
                 sv_qreg = sv_builder.qalloc(num_qubits)
                 for gate in gates:
                     if gate.name != "mz":

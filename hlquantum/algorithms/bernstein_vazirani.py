@@ -34,7 +34,7 @@ def bernstein_vazirani(secret_bitstring: str) -> Circuit:
         qc.h(i)
         
     # Apply Oracle: CX from q_i to ancilla if bit_i is 1
-    for i, bit in enumerate(reversed(secret_bitstring)):
+    for i, bit in enumerate(secret_bitstring):
         if bit == '1':
             qc.cx(i, n)
             

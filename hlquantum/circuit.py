@@ -10,8 +10,8 @@ and measurements that can be handed to *any* backend for execution.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from dataclasses import dataclass
+from typing import Any, Dict, List, Tuple, Union
 
 
 @dataclass(frozen=True)
