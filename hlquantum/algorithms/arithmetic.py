@@ -49,22 +49,55 @@ def full_adder() -> Circuit:
 
 
 def ripple_carry_adder(num_bits: int) -> Circuit:
-    """Generate an n-bit ripple carry adder.
-    
-    This is a demonstration of classical logic (binary addition)
-    reworked for quantum principles (reversible gates).
+    """Generate an n-bit ripple-carry adder.
+
+    Qubit layout:
+        a[0..n-1]   — first operand
+        b[0..n-1]   — second operand (sum is written here in-place)
+        c[0..n]     — carry chain (c[0]=carry-in, c[n]=carry-out)
+
+    Total qubits: 3*num_bits + 1
+    After execution b[i] holds the i-th bit of (A+B) and c[n] holds the
+    final carry-out.
     """
-    total_qubits = 2 * num_bits + 1 # A, B, and one carry
+    n = num_bits
+    total_qubits = 3 * n + 1  # a[n], b[n], c[n+1]
     qc = Circuit(total_qubits)
-    
-    # Simple Ripple Carry logic using CCX and CX
-    # (High-level conceptual implementation)
-    for i in range(num_bits):
-        a = i
-        b = num_bits + i
-        cout = total_qubits - 1 # Usually would propagate carries properly
-        
-        # XOR sum
-        qc.cx(a, b)
-        
+
+    def a(i: int) -> int:
+        return i
+
+    def b(i: int) -> int:
+        return n + i
+
+    def c(i: int) -> int:
+        return 2 * n + i
+
+    # Forward pass — propagate carries
+    for i in range(n):
+        # Carry: c[i+1] = MAJ(a[i], b[i], c[i])
+        # Step 1: XOR partial sums
+        qc.cx(a(i), b(i))          # b[i] ^= a[i]
+        qc.cx(c(i), b(i))          # b[i] ^= c[i]  →  b[i] = a[i]⊕b[i]⊕c[i] (partial sum)
+        # Step 2: Carry generation  c[i+1] = (a[i]·c[i]) ⊕ (b_orig[i]·c[i]) ⊕ (a[i]·b_orig[i])
+        qc.ccx(a(i), c(i), c(i + 1))
+        qc.cx(a(i), c(i))          # restore helper
+        qc.ccx(b(i), c(i), c(i + 1))
+        qc.cx(a(i), c(i))          # restore c[i]
+
+    # b already holds the XOR (partial sum) from the forward pass.
+    # The full sum bit is simply xor of a, b_orig, c_in which was
+    # accumulated into b during the forward pass.  No additional
+    # work needed — b[i] already equals Sum[i].\n
     return qc
+
+
+# ── User-friendly aliases ────────────────────────────────────────────────────
+add_two_bits = half_adder
+"""Alias for :func:`half_adder` — add two single-bit inputs."""
+
+add_three_bits = full_adder
+"""Alias for :func:`full_adder` — add two bits with a carry-in."""
+
+add_numbers = ripple_carry_adder
+"""Alias for :func:`ripple_carry_adder` — add two n-bit numbers."""

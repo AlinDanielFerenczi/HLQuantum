@@ -98,9 +98,9 @@ class PennyLaneBackend(Backend):
             if not measured:
                 measured = list(range(num_qubits))
 
-            dev = qml.device(self._device_name, wires=num_qubits, shots=shots, **dev_kwargs)
+            dev = qml.device(self._device_name, wires=num_qubits, **dev_kwargs)
 
-            @qml.qnode(dev)
+            @qml.qnode(dev, shots=shots)
             def qnode_counts():
                 for gate in gates:
                     self._apply_gate(gate, qml)
@@ -120,8 +120,7 @@ class PennyLaneBackend(Backend):
         # 2. Get statevector if requested
         state_vector = None
         if include_statevector:
-            # State vector in PL usually requires shots=None
-            sv_dev = qml.device(self._device_name, wires=num_qubits, shots=None, **dev_kwargs)
+            sv_dev = qml.device(self._device_name, wires=num_qubits, **dev_kwargs)
 
             @qml.qnode(sv_dev)
             def qnode_state():

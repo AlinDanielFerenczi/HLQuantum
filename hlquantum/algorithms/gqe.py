@@ -55,3 +55,8 @@ def gqe_solve(
         "x": getattr(res, "x", initial_params),
         "raw": res
     }
+
+
+# ── User-friendly alias ──────────────────────────────────────────────────────
+learn_distribution = gqe_solve
+"""Alias for :func:`gqe_solve` — learn a target probability distribution using a quantum circuit."""

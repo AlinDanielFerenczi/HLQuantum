@@ -84,14 +84,18 @@ class BraketBackend(Backend):
 
         # 2. Get statevector if requested
         if include_statevector:
-            # Note: SV retrieval usually requires shots=0 on simulators
-            sv_kwargs = {**kwargs, "shots": 0}
-            sv_task = device.run(braket_circuit, **sv_kwargs)
-            sv_result = sv_task.result()
-            # Handle LocalSimulator vs AWS devices
-            if hasattr(sv_result, "statevector"):
-                state_vector = sv_result.statevector
-            # If we already have raw_result and it was shots=0, we can use it
+            try:
+                from braket.circuits import result_types as braket_rt
+                sv_circuit = self._translate(circuit, BraketCircuit)
+                sv_circuit.state_vector()
+                sv_kwargs = {**kwargs, "shots": 0}
+                sv_task = device.run(sv_circuit, **sv_kwargs)
+                sv_result = sv_task.result()
+                # Access state vector from result_types
+                if sv_result.result_types:
+                    state_vector = sv_result.result_types[0]["value"]
+            except Exception as exc:
+                logger.warning("Could not retrieve state vector: %s", exc)
             if raw_result is None:
                 raw_result = sv_result
 

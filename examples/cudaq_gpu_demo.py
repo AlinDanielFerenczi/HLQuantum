@@ -19,7 +19,7 @@ CUDA-Q target selection (handled automatically by GPUConfig):
 import sys
 import logging
 
-from hlquantum.algorithms import bernstein_vazirani
+from hlquantum.algorithms import find_hidden_pattern
 from hlquantum.backends.cudaq_backend import CudaQBackend
 from hlquantum.gpu import GPUConfig, GPUPrecision
 
@@ -35,7 +35,7 @@ print(f"Secret bitstring  : {SECRET}  ({len(SECRET)} qubits)")
 # ──────────────────────────────────────────────────────────────────────────────
 # 2.  Build the circuit
 # ──────────────────────────────────────────────────────────────────────────────
-circuit = bernstein_vazirani(SECRET)
+circuit = find_hidden_pattern(SECRET)
 print(f"Circuit           : {circuit.num_qubits} qubits, {len(circuit.gates)} gates")
 
 # ──────────────────────────────────────────────────────────────────────────────

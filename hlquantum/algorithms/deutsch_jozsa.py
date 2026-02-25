@@ -57,3 +57,8 @@ def constant_oracle(qc: Circuit):
 def balanced_oracle(qc: Circuit):
     """Example of a balanced oracle (CX from q0 to ancilla)."""
     qc.cx(0, qc.num_qubits - 1)
+
+
+# ── User-friendly alias ──────────────────────────────────────────────────────
+check_balance = deutsch_jozsa
+"""Alias for :func:`deutsch_jozsa` — check whether a function is constant or balanced."""

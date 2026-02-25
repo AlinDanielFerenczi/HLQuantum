@@ -166,6 +166,24 @@ class Circuit:
 
     @property
     def depth(self) -> int:
+        """Circuit depth — the longest critical path through the circuit."""
+        if not self.gates:
+            return 0
+        # Track when each qubit is next free (layer index)
+        qubit_layers: Dict[int, int] = {}
+        max_depth = 0
+        for gate in self.gates:
+            involved = list(gate.targets) + list(gate.controls)
+            # This gate starts at the first layer after all involved qubits are free
+            layer = max((qubit_layers.get(q, 0) for q in involved), default=0)
+            for q in involved:
+                qubit_layers[q] = layer + 1
+            max_depth = max(max_depth, layer + 1)
+        return max_depth
+
+    @property
+    def gate_count(self) -> int:
+        """Total number of gates in the circuit."""
         return len(self.gates)
 
     @property

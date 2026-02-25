@@ -6,9 +6,8 @@ Quantum Approximate Optimization Algorithm (QAOA) implementation.
 """
 
 from __future__ import annotations
-from typing import Any, Callable, Dict, List, Optional, Union
-import numpy as np
-from hlquantum.circuit import Circuit, Parameter
+from typing import Any, Callable, Dict, List, Optional
+from hlquantum.circuit import Circuit
 from hlquantum.runner import run
 
 
@@ -101,3 +100,8 @@ def qaoa_solve(
         "raw": res,
         "n_qubits": n_qubits
     }
+
+
+# ── User-friendly alias ──────────────────────────────────────────────────────
+optimize_combinatorial = qaoa_solve
+"""Alias for :func:`qaoa_solve` — solve combinatorial optimisation problems (e.g. Max-Cut)."""

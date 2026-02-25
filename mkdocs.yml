@@ -1,30 +1,33 @@
 site_name: HLQuantum Documentation
 theme:
-  name: material
-  palette:
-    scheme: slate
-    primary: indigo
-    accent: cyan
-  features:
-    - navigation.sections
-    - navigation.tabs
-    - content.code.copy
+    name: material
+    palette:
+        scheme: slate
+        primary: indigo
+        accent: cyan
+    features:
+        - navigation.sections
+        - navigation.tabs
+        - content.code.copy
 
 plugins:
-  - search
-  - mkdocstrings:
-      handlers:
-        python:
-          setup_commands:
-            - import sys
-            - sys.path.append(".")
+    - search
+    - mkdocstrings:
+          handlers:
+              python:
+                  setup_commands:
+                      - import sys
+                      - sys.path.append(".")
 
 nav:
-  - Home: index.md
-  - API Reference:
-      - Core: api/core.md
-      - Backends: api/backends.md
-      - Transpiler: api/transpiler.md
-      - Mitigation: api/mitigation.md
-      - Algorithms: api/algorithms.md
-  - GPU Acceleration: gpu.md
+    - Home: index.md
+    - API Reference:
+          - Core: api/core.md
+          - Backends: api/backends.md
+          - Algorithms: api/algorithms.md
+          - Layers & Pipelines: api/layers.md
+          - Workflows: api/workflows.md
+          - Transpiler: api/transpiler.md
+          - Mitigation: api/mitigation.md
+    - GPU Acceleration: gpu.md
+    - Examples: examples.md

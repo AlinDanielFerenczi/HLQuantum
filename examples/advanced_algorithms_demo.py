@@ -3,7 +3,7 @@ Demo of advanced algorithms: QAOA, GQE, and Quantum Transformers.
 """
 
 import numpy as np
-from hlquantum.algorithms import qaoa_solve, gqe_solve
+from hlquantum.algorithms import optimize_combinatorial, learn_distribution
 from hlquantum.layers import QuantumTransformerBlock
 from hlquantum.circuit import Circuit
 
@@ -19,7 +19,7 @@ def main():
     # QAOA is CPU-intensive for optimization, so we show the setup
     print("Solving QAOA for Max-Cut...")
     # Mocking for speed in demo
-    res = qaoa_solve(cost_hamiltonian, p=1, shots=100)
+    res = optimize_combinatorial(cost_hamiltonian, p=1, shots=100)
     print(f"QAOA Result: Energy {res['fun']:.4f}")
 
     print("\n--- 2. Quantum Transformer ---")
@@ -35,7 +35,7 @@ def main():
         return -result.counts.get('00', 0)
     
     ansatz = Circuit(2).ry(0, "theta_0").ry(1, "theta_1")
-    gqe_res = gqe_solve(ansatz, simple_loss)
+    gqe_res = learn_distribution(ansatz, simple_loss)
     print(f"GQE optimized parameters: {gqe_res['x']}")
 
 if __name__ == "__main__":

@@ -14,7 +14,6 @@ authors = [
 ]
 dependencies = [
   "numpy",
-  # "cudaq", # Uncomment when ready to install specific version or if available on PyPI
 ]
 
 [project.optional-dependencies]
@@ -40,6 +39,14 @@ all = [
   "cirq",
   "amazon-braket-sdk",
   "pennylane",
+  "scipy",
+]
+ionq = [
+  "qiskit",
+  "qiskit-ionq",
+]
+scipy = [
+  "scipy",
 ]
 dev = [
   "pytest",

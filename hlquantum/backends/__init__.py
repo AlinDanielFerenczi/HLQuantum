@@ -11,6 +11,7 @@ from hlquantum.backends.qiskit_backend import QiskitBackend
 from hlquantum.backends.cirq_backend import CirqBackend
 from hlquantum.backends.braket_backend import BraketBackend
 from hlquantum.backends.pennylane_backend import PennyLaneBackend
+from hlquantum.backends.ionq_backend import IonQBackend
 
 __all__ = [
     "Backend",
@@ -19,4 +20,5 @@ __all__ = [
     "CirqBackend",
     "BraketBackend",
     "PennyLaneBackend",
+    "IonQBackend",
 ]

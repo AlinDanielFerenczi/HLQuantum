@@ -9,7 +9,6 @@ from __future__ import annotations
 
 from typing import Any, Callable, Dict, List, Optional, Union
 
-import numpy as np
 from hlquantum.circuit import Circuit
 from hlquantum.runner import run
 
@@ -42,9 +41,12 @@ def vqe_solve(
         Optimization results including optimal parameters and minimum energy.
     """
     try:
-        from scipy.optimize import minimize
+        from scipy.optimize import minimize as _minimize
     except ImportError:
-        res = None # Handle later or fail fast
+        raise ImportError(
+            "scipy is required for vqe_solve but is not installed.\n"
+            "Install it with:  pip install scipy"
+        )
 
     def objective(params):
         if isinstance(ansatz, Circuit):
@@ -69,8 +71,8 @@ def vqe_solve(
         res = optimizer(objective, initial_params)
 
     return {
-        "fun": getattr(res, "fun", res) if res else 0.0,
-        "x": getattr(res, "x", initial_params) if res else initial_params,
+        "fun": getattr(res, "fun", res),
+        "x": getattr(res, "x", initial_params),
         "raw": res
     }
 
@@ -81,11 +83,9 @@ def hardware_efficient_ansatz(num_qubits: int, params: List[float]) -> Circuit:
     """
     qc = Circuit(num_qubits)
     
-    # Simple Ry rotation layer
+    # Simple Ry rotation layer — one param per qubit
     for i in range(num_qubits):
-        # Using params sequentially
-        p_idx = i % len(params)
-        qc.ry(i, params[p_idx])
+        qc.ry(i, params[i] if i < len(params) else params[-1])
         
     # Entanglement layer
     if num_qubits > 1:
@@ -93,3 +93,11 @@ def hardware_efficient_ansatz(num_qubits: int, params: List[float]) -> Circuit:
             qc.cx(i, i + 1)
             
     return qc
+
+
+# ── User-friendly aliases ────────────────────────────────────────────────────
+find_minimum_energy = vqe_solve
+"""Alias for :func:`vqe_solve` — find the minimum energy (ground state) of a system."""
+
+variational_circuit = hardware_efficient_ansatz
+"""Alias for :func:`hardware_efficient_ansatz` — build a parameterized variational circuit."""

@@ -11,6 +11,7 @@
 | `CirqBackend`      | [Google Cirq](https://quantumai.google/cirq)           | `pip install hlquantum[cirq]`      |
 | `BraketBackend`    | [Amazon Braket](https://aws.amazon.com/braket/)        | `pip install hlquantum[braket]`    |
 | `PennyLaneBackend` | [Xanadu PennyLane](https://pennylane.ai)               | `pip install hlquantum[pennylane]` |
+| `IonQBackend`      | [IonQ](https://ionq.com) (via qiskit-ionq)             | `pip install hlquantum[ionq]`      |
 
 ## Installation
 
@@ -34,7 +35,6 @@ pip install ".[dev]"
 - **Quantum Pipelines** — Build modular architectures using ML-inspired `Layer` and `Sequential` models.
 - **Resilient Workflows** — Orchestrate complex executions with loops, branching, and state persistence (save/resume).
 - **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
-- **High-Level QML** — Keras-compatible `QuantumLayer` with auto-differentiation and TensorFlow Quantum support.
 - **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
 - **GPU Acceleration** — Unified `GPUConfig` across all backends.
 
@@ -67,6 +67,7 @@ gpu = GPUConfig(enabled=True, custatevec=True)
 | `CirqBackend`      | qsimcirq                 | `QSimSimulator(use_gpu=True)`                |
 | `PennyLaneBackend` | pennylane-lightning[gpu] | `"lightning.gpu"`                            |
 | `BraketBackend`    | _(not available)_        | _(cloud-managed hardware)_                   |
+| `IonQBackend`      | _(not available)_        | _(cloud-managed trapped-ion hardware)_       |
 
 ### Per-Backend GPU Examples
 
@@ -142,23 +143,31 @@ results = asyncio.run(wf.run(resume=True))
 print(wf.to_mermaid())
 ```
 
-## Quantum Machine Learning (QML)
+### Hybrid Quantum–Classical Workflows
 
-Integrate quantum layers into your standard Keras/TensorFlow models.
+Classical post-processing functions can run in the same workflow as quantum circuits.
+Each node receives a context dict with results from all prior steps:
 
 ```python
-import tensorflow as tf
-from hlquantum.qml import QuantumLayer, create_quantum_classifier
+from hlquantum.workflows import Workflow, Branch, WorkflowRunner
 
-# Build a hybrid model
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(8, activation='relu'),
-    QuantumLayer(my_parameterized_circuit), # Auto-detects TFQ or uses Parameter-Shift
-    tf.keras.layers.Dense(2, activation='softmax')
-])
+wf = Workflow(name="HybridPipeline")
 
-# Or use pre-built high-level models
-model = create_quantum_classifier(n_qubits=4, n_classes=2)
+# Quantum step
+wf.add(Circuit(2).h(0).cx(0, 1).measure_all(), name="bell")
+
+# Classical step — extract and analyse
+wf.add(lambda ctx: ctx["previous_result"].counts, name="extract_counts")
+wf.add(lambda ctx: sum(ctx["previous_result"].get(k, 0) for k in ("00", "11")) / 1000, name="correlation")
+
+# Branch on the result
+wf.add(Branch(
+    lambda ctx: ctx["previous_result"] > 0.9,
+    lambda ctx: "entangled",
+    lambda ctx: "not entangled",
+), name="classify")
+
+results = asyncio.run(wf.run())
 ```
 
 ## Quick Start
@@ -184,7 +193,7 @@ print(bell.circuit)
 ```python
 from hlquantum.backends import CudaQBackend
 
-backend = CudaQBackend(target="default")
+backend = CudaQBackend(target="nvidia")
 result = hlquantum.run(bell, shots=1000, backend=backend)
 print(result.counts)  # {'00': ~500, '11': ~500}
 ```
@@ -247,6 +256,19 @@ result = hlquantum.run(bell, shots=1000, backend=backend)
 backend = PennyLaneBackend(device_name="lightning.qubit")
 ```
 
+### IonQ
+
+```python
+from hlquantum.backends import IonQBackend
+
+# IonQ cloud simulator (default)
+backend = IonQBackend(api_key="your-ionq-api-key")
+result = hlquantum.run(bell, shots=1000, backend=backend)
+
+# IonQ trapped-ion QPU
+backend = IonQBackend(backend_name="ionq_qpu", api_key="your-ionq-api-key")
+```
+
 ## Working with Results
 
 ```python
@@ -277,28 +299,28 @@ result = hlquantum.run(
 from hlquantum import algorithms
 
 # Foundational
-qft_circuit = algorithms.qft(num_qubits=4)
-bv_circuit = algorithms.bernstein_vazirani("1011")
-grover_circuit = algorithms.grover(num_qubits=3, target_states=["101"])
+qft_circuit = algorithms.frequency_transform(num_qubits=4)
+bv_circuit = algorithms.find_hidden_pattern("1011")
+search_circuit = algorithms.quantum_search(num_qubits=3, target_states=["101"])
 
 # Classical Logic (Quantum Arithmetic)
-adder = algorithms.half_adder()
+adder = algorithms.add_two_bits()
 
 # Variational & Optimization
-from hlquantum.algorithms import vqe_solve, qaoa_solve, gqe_solve
+from hlquantum.algorithms import find_minimum_energy, optimize_combinatorial, learn_distribution
 
 # VQE with parameterized circuits
-res = vqe_solve(my_ansatz, initial_params=[0.1, 0.2])
+res = find_minimum_energy(my_ansatz, initial_params=[0.1, 0.2])
 
 # QAOA for combinatorial optimization
-res = qaoa_solve(cost_hamiltonian, p=2)
+res = optimize_combinatorial(cost_hamiltonian, p=2)
 
 # GQE for generative modeling
-res = gqe_solve(ansatz, my_loss_fn)
+res = learn_distribution(ansatz, my_loss_fn)
 
 # Differentiable Programming
-from hlquantum.algorithms import parameter_shift_gradient
-grads = parameter_shift_gradient(circuit, {"theta": 0.5})
+from hlquantum.algorithms import compute_gradient
+grads = compute_gradient(circuit, {"theta": 0.5})
 ```
 
 ## Adding a Custom Backend
@@ -324,6 +346,17 @@ class MyBackend(Backend):
 ```bash
 pip install ".[dev]"
 pytest tests/ -v
+```
+
+## Documentation
+
+Full documentation — including API reference for all modules (circuits, backends,
+algorithms, layers, workflows, transpiler, mitigation, GPU) and runnable examples —
+is available via MkDocs:
+
+```bash
+pip install ".[dev]"
+mkdocs serve
 ```
 
 ## Sponsors

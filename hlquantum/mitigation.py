@@ -33,17 +33,23 @@ class ThresholdMitigation(MitigationMethod):
         if not result.counts:
             return result
 
+        from hlquantum.result import ExecutionResult as ER
+
         total_shots = result.shots
         new_counts = {
             k: v for k, v in result.counts.items() 
             if (v / total_shots) >= self.threshold
         }
         
-        # Re-scale to keep total shots consistent if needed, 
-        # or leave as is to show filtered results.
-        # Here we just update the counts.
-        result.counts = new_counts
-        return result
+        # Return a new ExecutionResult instead of mutating the input
+        return ER(
+            counts=new_counts,
+            shots=result.shots,
+            backend_name=result.backend_name,
+            raw=result.raw,
+            state_vector=result.state_vector,
+            metadata=result.metadata,
+        )
 
 
 class ReadoutMitigation(MitigationMethod):

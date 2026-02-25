@@ -100,3 +100,8 @@ bin/
 
 cuda-keyring_1.1-1_all.deb
 pyvenv.cfg
+
+include/
+
+local_dev/
+cuda-repo-wsl-ubuntu-13-1-local_13.1.1-1_amd64.deb

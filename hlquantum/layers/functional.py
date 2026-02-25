@@ -9,8 +9,8 @@ from __future__ import annotations
 from typing import List, Optional
 from hlquantum.layers.base import Layer
 from hlquantum.circuit import Circuit
-from hlquantum.algorithms.grover import grover
-from hlquantum.algorithms.qft import qft
+from hlquantum.algorithms.grover import grover as quantum_search
+from hlquantum.algorithms.qft import qft as frequency_transform
 
 
 class GroverLayer(Layer):
@@ -23,7 +23,7 @@ class GroverLayer(Layer):
 
     def build(self, input_qubits: Optional[int] = None) -> Circuit:
         n = input_qubits if input_qubits is not None else self.num_qubits
-        return grover(n, self.target_states, self.iterations)
+        return quantum_search(n, self.target_states, self.iterations)
 
 
 class QFTLayer(Layer):
@@ -34,4 +34,4 @@ class QFTLayer(Layer):
 
     def build(self, input_qubits: Optional[int] = None) -> Circuit:
         n = input_qubits if input_qubits is not None else self.num_qubits
-        return qft(n)
+        return frequency_transform(n)

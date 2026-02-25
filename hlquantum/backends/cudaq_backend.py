@@ -48,13 +48,13 @@ class CudaQBackend(Backend):
 
     @property
     def name(self) -> str:
-        return f"cudaq ({self._target})"
+        return f"cudaq ({self._target or 'default'})"
 
-    def _resolve_target(self) -> str:
+    def _resolve_target(self) -> Optional[str]:
         if self._explicit_target is not None:
             return self._explicit_target
         if not self._gpu_config.enabled:
-            return "default"
+            return None  # let CUDA-Q use its built-in default
         if self._gpu_config.multi_gpu:
             return "nvidia-mqpu"
         if self._gpu_config.precision == GPUPrecision.FP64:
@@ -75,12 +75,12 @@ class CudaQBackend(Backend):
         if self._gpu_config.enabled:
             self._gpu_config.apply_env()
 
-        # Set the target
-        target_kwargs: Dict[str, Any] = {}
-        if self._gpu_config.enabled and self._gpu_config.extra:
-            target_kwargs.update(self._gpu_config.extra)
-
-        cudaq.set_target(self._target, **target_kwargs)
+        # Set the target (skip if None to use CUDA-Q built-in default)
+        if self._target is not None:
+            target_kwargs: Dict[str, Any] = {}
+            if self._gpu_config.enabled and self._gpu_config.extra:
+                target_kwargs.update(self._gpu_config.extra)
+            cudaq.set_target(self._target, **target_kwargs)
 
         num_qubits = circuit.num_qubits
         gates = circuit.gates

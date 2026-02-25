@@ -67,7 +67,8 @@ class TestCudaQGPUTargetResolution:
     def test_cpu_default(self):
         from hlquantum.backends.cudaq_backend import CudaQBackend
         backend = CudaQBackend()
-        assert backend._target == "default"
+        assert backend._target is None
+        assert "default" in backend.name
         assert backend.supports_gpu is True
 
     def test_gpu_enabled_auto_nvidia(self):

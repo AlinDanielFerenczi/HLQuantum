@@ -8,9 +8,10 @@ Cirq, Amazon Braket, and PennyLane — with optional GPU acceleration
 where available.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
-from hlquantum.circuit import QuantumCircuit as Circuit  # Friendly alias
+from hlquantum.circuit import QuantumCircuit
+from hlquantum.result import ExecutionResult
 from hlquantum.gpu import GPUConfig, GPUPrecision, detect_gpus
 from hlquantum.kernel import kernel
 from hlquantum.runner import run
@@ -18,13 +19,10 @@ from hlquantum import transpiler
 from hlquantum import mitigation
 from hlquantum import algorithms
 
-# Explicit export of friendly names
-QuantumCircuit = Circuit
-
 __all__ = [
     "__version__",
-    "Circuit",
     "QuantumCircuit",
+    "ExecutionResult",
     "GPUConfig",
     "GPUPrecision",
     "detect_gpus",

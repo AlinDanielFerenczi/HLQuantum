@@ -45,11 +45,17 @@ def parameter_shift_gradient(
     circuit_params = circuit.parameters
     param_names = [p.name for p in circuit_params]
     
+    # Normalise parameter_values keys to strings
+    normalised_values: Dict[str, float] = {}
+    for k, v in parameter_values.items():
+        key = k.name if isinstance(k, Parameter) else k
+        normalised_values[key] = v
+    parameter_values = normalised_values  # type: ignore[assignment]
+
     # Ensure all required values are provided
-    for name in param_names:
-        if name not in parameter_values and not any(p.name == name for p in parameter_values.keys() if isinstance(p, Parameter)):
-             # We assume name is str here if not Parameter
-             pass
+    missing = [name for name in param_names if name not in parameter_values]
+    if missing:
+        raise ValueError(f"Missing parameter values for: {', '.join(missing)}")
 
     for param in circuit_params:
         # 1. Plus shift: θ + π/2
@@ -74,3 +80,8 @@ def parameter_shift_gradient(
         grads[param.name] = 0.5 * (e_plus - e_minus)
 
     return grads
+
+
+# ── User-friendly alias ──────────────────────────────────────────────────────
+compute_gradient = parameter_shift_gradient
+"""Alias for :func:`parameter_shift_gradient` — compute quantum circuit gradients."""

@@ -72,8 +72,21 @@ class MergeRotations(TranspilationPass):
                 circuit.gates[i+1].name == gate.name and 
                 circuit.gates[i+1].targets == gate.targets):
                 
-                # Merge the angles
-                new_angle = gate.params[0] + circuit.gates[i+1].params[0]
+                from hlquantum.circuit import Parameter
+                a, b = gate.params[0], circuit.gates[i+1].params[0]
+                # Skip merge if either angle is a symbolic Parameter
+                if isinstance(a, Parameter) or isinstance(b, Parameter):
+                    new_circuit.gates.append(gate)
+                    i += 1
+                    continue
+                
+                # Merge the angles and normalise modulo 2π
+                import math
+                new_angle = (a + b) % (2 * math.pi)
+                # If the merged angle is effectively zero, skip the gate entirely
+                if abs(new_angle) < 1e-10 or abs(new_angle - 2 * math.pi) < 1e-10:
+                    i += 2
+                    continue
                 merged_gate = Gate(
                     name=gate.name, 
                     targets=gate.targets, 

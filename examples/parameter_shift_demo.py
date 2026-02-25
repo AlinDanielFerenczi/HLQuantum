@@ -4,7 +4,7 @@ Example demonstrating the Parameter Shift Rule for calculating quantum gradients
 
 import math
 from hlquantum.circuit import Circuit, Parameter
-from hlquantum.algorithms.grad import parameter_shift_gradient
+from hlquantum.algorithms.grad import compute_gradient
 from hlquantum.backends.base import Backend
 from hlquantum.result import ExecutionResult
 
@@ -49,7 +49,7 @@ def main():
     # Derivative of cos(theta) is -sin(theta)
     # At pi/4, -sin(pi/4) approx -0.7071
     backend = MockBackend()
-    grads = parameter_shift_gradient(qc, p_values, backend=backend, shots=10000)
+    grads = compute_gradient(qc, p_values, backend=backend, shots=10000)
     
     print("\nResults:")
     for name, grad_val in grads.items():

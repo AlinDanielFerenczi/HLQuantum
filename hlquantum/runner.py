@@ -8,7 +8,7 @@ manually instantiating a backend.
 
 from __future__ import annotations
 
-from typing import Optional, Union
+from typing import Any, List, Optional, Union
 
 from hlquantum.backends.base import Backend
 from hlquantum.circuit import QuantumCircuit
@@ -16,10 +16,6 @@ from hlquantum.kernel import Kernel
 from hlquantum.result import ExecutionResult
 from hlquantum.transpiler import transpile as default_transpile
 from hlquantum.mitigation import apply_mitigation
-
-# User-friendly aliases
-Circuit = QuantumCircuit
-Result = ExecutionResult
 
 _default_backend: Optional[Backend] = None
 

@@ -8,7 +8,7 @@ Google Cirq backend for HLQuantum.
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from hlquantum.backends.base import Backend
 from hlquantum.circuit import Gate, QuantumCircuit
@@ -154,7 +154,7 @@ class CirqBackend(Backend):
     def _translate(circuit: QuantumCircuit, cirq: Any):
         qubits = cirq.LineQubit.range(circuit.num_qubits)
         ops = []
-        measured_keys: list[str] = []
+        measured_keys: List[str] = []
 
         for gate in circuit.gates:
             name = gate.name

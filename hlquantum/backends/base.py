@@ -11,6 +11,7 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from hlquantum.circuit import QuantumCircuit
+from hlquantum.exceptions import CircuitValidationError
 from hlquantum.gpu import GPUConfig
 from hlquantum.result import ExecutionResult
 
@@ -54,7 +55,20 @@ class Backend(ABC):
         ...
 
     def validate(self, circuit: QuantumCircuit) -> None:
-        pass
+        """Validate that *circuit* is executable on this backend.
+
+        The default implementation checks that the circuit has at least one
+        qubit.  Subclasses may override for backend-specific validation.
+
+        Raises
+        ------
+        CircuitValidationError
+            If the circuit fails validation.
+        """
+        if circuit.num_qubits < 1:
+            raise CircuitValidationError(
+                f"Circuit must have at least 1 qubit, got {circuit.num_qubits}"
+            )
 
     def __repr__(self) -> str:
         gpu_tag = " [GPU]" if self.gpu_config and self.gpu_config.enabled else ""

@@ -47,3 +47,8 @@ def bernstein_vazirani(secret_bitstring: str) -> Circuit:
         qc.measure(i)
         
     return qc
+
+
+# ── User-friendly alias ──────────────────────────────────────────────────────
+find_hidden_pattern = bernstein_vazirani
+"""Alias for :func:`bernstein_vazirani` — discover a hidden bitstring pattern in one query."""
