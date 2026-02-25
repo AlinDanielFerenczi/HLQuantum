@@ -2,6 +2,16 @@
 
 **HLQuantum** (High Level Quantum) is a high-level Python package designed to simplify working with quantum hardware. Write your quantum logic once and run it on any supported backend.
 
+## Features
+
+- **Backend-Agnostic Circuits** — A single `QuantumCircuit` IR that translates to any supported framework.
+- **Quantum Pipelines** — Build modular architectures using ML-inspired `Layer` and `Sequential` models.
+- **Resilient Workflows** — Orchestrate complex executions with loops, branching, and state persistence (save/resume).
+- **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
+- **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
+- **GPU Acceleration** — Unified `GPUConfig` across all backends.
+- **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
+
 ## Supported Backends
 
 | Backend            | Framework                                              | Install extra                      |
@@ -28,16 +38,6 @@ pip install ".[all]"
 # Development
 pip install ".[dev]"
 ```
-
-## Features
-
-- **Backend-Agnostic Circuits** — A single `QuantumCircuit` IR that translates to any supported framework.
-- **Quantum Pipelines** — Build modular architectures using ML-inspired `Layer` and `Sequential` models.
-- **Resilient Workflows** — Orchestrate complex executions with loops, branching, and state persistence (save/resume).
-- **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
-- **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
-- **GPU Acceleration** — Unified `GPUConfig` across all backends.
-- **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
 
 ## GPU Acceleration
 
@@ -340,13 +340,6 @@ class MyBackend(Backend):
         # Translate circuit.gates → your framework
         # Execute and collect counts
         return ExecutionResult(counts={"00": shots}, shots=shots, backend_name=self.name)
-```
-
-## Running Tests
-
-```bash
-pip install ".[dev]"
-pytest tests/ -v
 ```
 
 ## Documentation
