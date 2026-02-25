@@ -70,39 +70,6 @@ gpu = GPUConfig(enabled=True, custatevec=True)
 | `BraketBackend`    | _(not available)_        | _(cloud-managed hardware)_                   |
 | `IonQBackend`      | _(not available)_        | _(cloud-managed trapped-ion hardware)_       |
 
-### Per-Backend GPU Examples
-
-```python
-from hlquantum import GPUConfig, GPUPrecision
-from hlquantum.backends import CudaQBackend, QiskitBackend, CirqBackend, PennyLaneBackend
-
-gpu = GPUConfig(enabled=True)
-
-# CUDA-Q — auto-selects "nvidia" target
-cudaq = CudaQBackend(gpu_config=gpu)
-
-# CUDA-Q — multi-GPU with FP64
-cudaq_multi = CudaQBackend(
-    gpu_config=GPUConfig(enabled=True, multi_gpu=True, precision=GPUPrecision.FP64)
-)
-
-# Qiskit Aer — GPU + cuStateVec
-qiskit = QiskitBackend(gpu_config=GPUConfig(enabled=True, custatevec=True))
-
-# Cirq — qsim GPU simulator
-cirq = CirqBackend(gpu_config=gpu)
-
-# PennyLane — auto-selects lightning.gpu
-pl = PennyLaneBackend(gpu_config=gpu)
-```
-
-```python
-from hlquantum import detect_gpus
-
-for gpu in detect_gpus():
-    print(f"GPU {gpu['id']}: {gpu['name']} ({gpu['memory_total_gb']} GB)")
-```
-
 ## Quantum Pipelines (ML-Style)
 
 Build complex circuits modularly by stacking layers:
@@ -270,9 +237,42 @@ result = hlquantum.run(bell, shots=1000, backend=backend)
 backend = IonQBackend(backend_name="ionq_qpu", api_key="your-ionq-api-key")
 ```
 
-## Working with Results
+### Per-Backend GPU Examples
 
 ```python
+from hlquantum import GPUConfig, GPUPrecision
+from hlquantum.backends import CudaQBackend, QiskitBackend, CirqBackend, PennyLaneBackend
+
+gpu = GPUConfig(enabled=True)
+
+# CUDA-Q — auto-selects "nvidia" target
+cudaq = CudaQBackend(gpu_config=gpu)
+
+# CUDA-Q — multi-GPU with FP64
+cudaq_multi = CudaQBackend(
+    gpu_config=GPUConfig(enabled=True, multi_gpu=True, precision=GPUPrecision.FP64)
+)
+
+# Qiskit Aer — GPU + cuStateVec
+qiskit = QiskitBackend(gpu_config=GPUConfig(enabled=True, custatevec=True))
+
+# Cirq — qsim GPU simulator
+cirq = CirqBackend(gpu_config=gpu)
+
+# PennyLane — auto-selects lightning.gpu
+pl = PennyLaneBackend(gpu_config=gpu)
+```
+
+```python
+from hlquantum import detect_gpus
+
+for gpu in detect_gpus():
+    print(f"GPU {gpu['id']}: {gpu['name']} ({gpu['memory_total_gb']} GB)")
+```
+
+## Working with Results
+
+````python
 result = hlquantum.run(bell, shots=1000)
 
 result.counts           # {'00': 512, '11': 488}
@@ -296,34 +296,6 @@ result = hlquantum.run(
     mitigation=ThresholdMitigation(threshold=0.01)
 )
 
-# Built-in Algorithms
-from hlquantum import algorithms
-
-# Foundational
-qft_circuit = algorithms.frequency_transform(num_qubits=4)
-bv_circuit = algorithms.find_hidden_pattern("1011")
-search_circuit = algorithms.quantum_search(num_qubits=3, target_states=["101"])
-
-# Classical Logic (Quantum Arithmetic)
-adder = algorithms.add_two_bits()
-
-# Variational & Optimization
-from hlquantum.algorithms import find_minimum_energy, optimize_combinatorial, learn_distribution
-
-# VQE with parameterized circuits
-res = find_minimum_energy(my_ansatz, initial_params=[0.1, 0.2])
-
-# QAOA for combinatorial optimization
-res = optimize_combinatorial(cost_hamiltonian, p=2)
-
-# GQE for generative modeling
-res = learn_distribution(ansatz, my_loss_fn)
-
-# Differentiable Programming
-from hlquantum.algorithms import compute_gradient
-grads = compute_gradient(circuit, {"theta": 0.5})
-```
-
 ## Adding a Custom Backend
 
 ```python
@@ -340,7 +312,7 @@ class MyBackend(Backend):
         # Translate circuit.gates → your framework
         # Execute and collect counts
         return ExecutionResult(counts={"00": shots}, shots=shots, backend_name=self.name)
-```
+````
 
 ## Documentation
 
