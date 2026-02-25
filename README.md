@@ -39,36 +39,21 @@ pip install ".[all]"
 pip install ".[dev]"
 ```
 
-## GPU Acceleration
+## Out-of-the-Box Algorithms
 
-HLQuantum provides a unified `GPUConfig` that works across all GPU-capable backends:
+HLQuantum ships with ready-to-use implementations of common quantum algorithms — each available under a friendly alias so you can express intent without memorising circuit-level details:
 
 ```python
-from hlquantum import GPUConfig, GPUPrecision
+from hlquantum.algorithms import quantum_search
+import hlquantum
 
-# Simple — single GPU
-gpu = GPUConfig(enabled=True)
-
-# Multi-GPU
-gpu = GPUConfig(enabled=True, multi_gpu=True, device_ids=[0, 1])
-
-# FP64 precision
-gpu = GPUConfig(enabled=True, precision=GPUPrecision.FP64)
-
-# Enable cuStateVec (Qiskit Aer)
-gpu = GPUConfig(enabled=True, custatevec=True)
+# Search a 5-qubit space for the state |10101⟩
+circuit = quantum_search(num_qubits=5, target_states=["10101"])
+result = hlquantum.run(circuit, shots=1000)
+print(result.most_probable)  # '10101'
 ```
 
-### GPU Support by Backend
-
-| Backend            | GPU Library              | Auto-selected target / device                |
-| ------------------ | ------------------------ | -------------------------------------------- |
-| `CudaQBackend`     | CUDA-Q (native)          | `"nvidia"`, `"nvidia-fp64"`, `"nvidia-mqpu"` |
-| `QiskitBackend`    | qiskit-aer-gpu           | `AerSimulator(device='GPU')`                 |
-| `CirqBackend`      | qsimcirq                 | `QSimSimulator(use_gpu=True)`                |
-| `PennyLaneBackend` | pennylane-lightning[gpu] | `"lightning.gpu"`                            |
-| `BraketBackend`    | _(not available)_        | _(cloud-managed hardware)_                   |
-| `IonQBackend`      | _(not available)_        | _(cloud-managed trapped-ion hardware)_       |
+Other algorithms include QFT (`frequency_transform`), VQE (`find_minimum_energy`), QAOA (`optimize_combinatorial`), Bernstein-Vazirani (`find_hidden_pattern`), and more — see the [algorithms API reference](docs/api/algorithms.md) for the full list.
 
 ## Quantum Pipelines (ML-Style)
 
@@ -136,22 +121,6 @@ wf.add(Branch(
 ), name="classify")
 
 results = asyncio.run(wf.run())
-```
-
-## Quick Start
-
-```python
-import hlquantum
-from hlquantum import kernel
-
-@kernel(num_qubits=2)
-def bell(qc):
-    qc.h(0)
-    qc.cx(0, 1)
-    qc.measure_all()
-
-print(bell.circuit)
-# QuantumCircuit(num_qubits=2, gates=4)
 ```
 
 ## Backend Examples
@@ -237,42 +206,40 @@ result = hlquantum.run(bell, shots=1000, backend=backend)
 backend = IonQBackend(backend_name="ionq_qpu", api_key="your-ionq-api-key")
 ```
 
-### Per-Backend GPU Examples
+## GPU Acceleration
+
+HLQuantum provides a unified `GPUConfig` that works across all GPU-capable backends:
 
 ```python
 from hlquantum import GPUConfig, GPUPrecision
-from hlquantum.backends import CudaQBackend, QiskitBackend, CirqBackend, PennyLaneBackend
 
+# Simple — single GPU
 gpu = GPUConfig(enabled=True)
 
-# CUDA-Q — auto-selects "nvidia" target
-cudaq = CudaQBackend(gpu_config=gpu)
+# Multi-GPU
+gpu = GPUConfig(enabled=True, multi_gpu=True, device_ids=[0, 1])
 
-# CUDA-Q — multi-GPU with FP64
-cudaq_multi = CudaQBackend(
-    gpu_config=GPUConfig(enabled=True, multi_gpu=True, precision=GPUPrecision.FP64)
-)
+# FP64 precision
+gpu = GPUConfig(enabled=True, precision=GPUPrecision.FP64)
 
-# Qiskit Aer — GPU + cuStateVec
-qiskit = QiskitBackend(gpu_config=GPUConfig(enabled=True, custatevec=True))
-
-# Cirq — qsim GPU simulator
-cirq = CirqBackend(gpu_config=gpu)
-
-# PennyLane — auto-selects lightning.gpu
-pl = PennyLaneBackend(gpu_config=gpu)
+# Enable cuStateVec (Qiskit Aer)
+gpu = GPUConfig(enabled=True, custatevec=True)
 ```
 
-```python
-from hlquantum import detect_gpus
+#### GPU Support by Backend
 
-for gpu in detect_gpus():
-    print(f"GPU {gpu['id']}: {gpu['name']} ({gpu['memory_total_gb']} GB)")
-```
+| Backend            | GPU Library              | Auto-selected target / device                |
+| ------------------ | ------------------------ | -------------------------------------------- |
+| `CudaQBackend`     | CUDA-Q (native)          | `"nvidia"`, `"nvidia-fp64"`, `"nvidia-mqpu"` |
+| `QiskitBackend`    | qiskit-aer-gpu           | `AerSimulator(device='GPU')`                 |
+| `CirqBackend`      | qsimcirq                 | `QSimSimulator(use_gpu=True)`                |
+| `PennyLaneBackend` | pennylane-lightning[gpu] | `"lightning.gpu"`                            |
+| `BraketBackend`    | _(not available)_        | _(cloud-managed hardware)_                   |
+| `IonQBackend`      | _(not available)_        | _(cloud-managed trapped-ion hardware)_       |
 
 ## Working with Results
 
-````python
+```python
 result = hlquantum.run(bell, shots=1000)
 
 result.counts           # {'00': 512, '11': 488}
@@ -295,6 +262,7 @@ result = hlquantum.run(
     transpile=True,
     mitigation=ThresholdMitigation(threshold=0.01)
 )
+```
 
 ## Adding a Custom Backend
 
@@ -312,7 +280,7 @@ class MyBackend(Backend):
         # Translate circuit.gates → your framework
         # Execute and collect counts
         return ExecutionResult(counts={"00": shots}, shots=shots, backend_name=self.name)
-````
+```
 
 ## Documentation
 
