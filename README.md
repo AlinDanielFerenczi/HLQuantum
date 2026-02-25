@@ -37,6 +37,7 @@ pip install ".[dev]"
 - **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
 - **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
 - **GPU Acceleration** — Unified `GPUConfig` across all backends.
+- **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
 
 ## GPU Acceleration
 
