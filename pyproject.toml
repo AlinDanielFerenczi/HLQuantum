@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hlquantum"
-version = "0.1.1"
+version = "0.1.2"
 description = "HLQuantum (High Level Quantum) — A high-level Python package for working with quantum hardware using CUDA-Q and other backends."
 readme = "README.md"
 requires-python = ">=3.8"

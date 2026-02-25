@@ -8,7 +8,7 @@ Cirq, Amazon Braket, and PennyLane — with optional GPU acceleration
 where available.
 """
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 from hlquantum.circuit import QuantumCircuit
 from hlquantum.result import ExecutionResult
