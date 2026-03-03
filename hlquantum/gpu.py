@@ -1,9 +1,4 @@
-"""
-hlquantum.gpu
-~~~~~~~~~~~~~~
-
-GPU configuration and utilities shared across backends.
-"""
+"""GPU configuration and detection utilities."""
 
 from __future__ import annotations
 
@@ -23,7 +18,7 @@ class GPUPrecision(Enum):
 
 @dataclass
 class GPUConfig:
-    """Configuration for GPU-accelerated quantum simulation."""
+    """Configuration for GPU-accelerated simulation."""
 
     enabled: bool = False
     device_ids: Optional[List[int]] = None
@@ -37,15 +32,11 @@ class GPUConfig:
     def num_gpus(self) -> int:
         if not self.enabled:
             return 0
-        if self.device_ids is not None:
-            return len(self.device_ids)
-        return 1
+        return len(self.device_ids) if self.device_ids is not None else 1
 
     @property
     def cuda_visible_devices(self) -> Optional[str]:
-        if self.device_ids is None:
-            return None
-        return ",".join(str(d) for d in self.device_ids)
+        return ",".join(str(d) for d in self.device_ids) if self.device_ids else None
 
     def apply_env(self) -> None:
         cvd = self.cuda_visible_devices
@@ -57,7 +48,7 @@ class GPUConfig:
         if not self.enabled:
             return "GPUConfig(enabled=False)"
         parts = ["enabled=True"]
-        if self.device_ids is not None:
+        if self.device_ids:
             parts.append(f"device_ids={self.device_ids}")
         if self.multi_gpu:
             parts.append("multi_gpu=True")
@@ -68,10 +59,9 @@ class GPUConfig:
 
 
 def detect_gpus() -> List[Dict[str, Any]]:
-    """Detect available NVIDIA GPUs via ``pynvml`` (best-effort)."""
+    """Detect available NVIDIA GPUs."""
     try:
-        import pynvml  # type: ignore[import-untyped]
-
+        import pynvml
         pynvml.nvmlInit()
         count = pynvml.nvmlDeviceGetCount()
         gpus = []
@@ -81,14 +71,13 @@ def detect_gpus() -> List[Dict[str, Any]]:
             if isinstance(name, bytes):
                 name = name.decode()
             mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
-            gpus.append(
-                {
-                    "id": i,
-                    "name": name,
-                    "memory_total_gb": round(mem.total / (1024**3), 2),
-                }
-            )
+            gpus.append({
+                "id": i,
+                "name": name,
+                "memory_total_gb": round(mem.total / (1024**3), 2),
+            })
         pynvml.nvmlShutdown()
         return gpus
     except Exception:
         return []
+

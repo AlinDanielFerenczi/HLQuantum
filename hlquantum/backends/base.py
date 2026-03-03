@@ -1,9 +1,4 @@
-"""
-hlquantum.backends.base
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Abstract base class that every HLQuantum backend must implement.
-"""
+"""Abstract base class for backends."""
 
 from __future__ import annotations
 
@@ -39,37 +34,15 @@ class Backend(ABC):
         include_statevector: bool = False,
         **kwargs,
     ) -> ExecutionResult:
-        """Execute *circuit* and return an :class:`ExecutionResult`.
-
-        Parameters
-        ----------
-        circuit : QuantumCircuit
-            The circuit to execute.
-        shots : int, optional
-            Number of measurement shots (default 1000).
-        include_statevector : bool, optional
-            If *True*, attempt to include the state vector in the result.
-        **kwargs
-            Backend-specific options.
-        """
+        """Execute circuit and return Result."""
         ...
 
     def validate(self, circuit: QuantumCircuit) -> None:
-        """Validate that *circuit* is executable on this backend.
-
-        The default implementation checks that the circuit has at least one
-        qubit.  Subclasses may override for backend-specific validation.
-
-        Raises
-        ------
-        CircuitValidationError
-            If the circuit fails validation.
-        """
+        """Validate circuit for this backend."""
         if circuit.num_qubits < 1:
-            raise CircuitValidationError(
-                f"Circuit must have at least 1 qubit, got {circuit.num_qubits}"
-            )
+            raise CircuitValidationError(f"Circuit must have at least 1 qubit.")
 
     def __repr__(self) -> str:
         gpu_tag = " [GPU]" if self.gpu_config and self.gpu_config.enabled else ""
         return f"<Backend: {self.name}{gpu_tag}>"
+

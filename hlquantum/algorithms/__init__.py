@@ -22,6 +22,8 @@ Friendly name                                     Canonical name
 ``optimize_combinatorial``                        ``qaoa_solve``
 ``learn_distribution``                            ``gqe_solve``
 ``compute_gradient``                              ``parameter_shift_gradient``
+``estimate_phase``                                ``phase_estimation``
+``estimate_amplitude``                            ``amplitude_estimation``
 ================================================  ========================
 """
 
@@ -40,6 +42,8 @@ from hlquantum.algorithms.vqe import (
 from hlquantum.algorithms.qaoa import qaoa_solve, optimize_combinatorial
 from hlquantum.algorithms.gqe import gqe_solve, learn_distribution
 from hlquantum.algorithms.grad import parameter_shift_gradient, compute_gradient
+from hlquantum.algorithms.phase_estimation import phase_estimation, estimate_phase
+from hlquantum.algorithms.amplitude_estimation import amplitude_estimation, estimate_amplitude
 
 __all__ = [
     # Canonical names (backward-compatible)
@@ -55,6 +59,8 @@ __all__ = [
     "qaoa_solve",
     "gqe_solve",
     "parameter_shift_gradient",
+    "phase_estimation",
+    "amplitude_estimation",
     # User-friendly aliases
     "frequency_transform",
     "quantum_search",
@@ -68,4 +74,6 @@ __all__ = [
     "optimize_combinatorial",
     "learn_distribution",
     "compute_gradient",
+    "estimate_phase",
+    "estimate_amplitude",
 ]

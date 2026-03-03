@@ -1,9 +1,4 @@
-"""
-hlquantum.transpiler
-~~~~~~~~~~~~~~~~~~~~
-
-Optimization and transpilation logic for quantum circuits.
-"""
+"""Optimization and transpilation logic."""
 
 from __future__ import annotations
 
@@ -14,16 +9,16 @@ from hlquantum.circuit import Gate, QuantumCircuit
 
 
 class TranspilationPass(ABC):
-    """Abstract base class for a transpilation pass."""
+    """Base class for a transpilation pass."""
 
     @abstractmethod
     def run(self, circuit: QuantumCircuit) -> QuantumCircuit:
-        """Run the pass on the given circuit."""
+        """Run the pass on the circuit."""
         ...
 
 
 class RemoveRedundantGates(TranspilationPass):
-    """Removes consecutive gates that cancel each other out (e.g., H followed by H)."""
+    """Removes consecutive gates that cancel out (e.g., H H)."""
 
     def run(self, circuit: QuantumCircuit) -> QuantumCircuit:
         if not circuit.gates:
@@ -32,24 +27,18 @@ class RemoveRedundantGates(TranspilationPass):
         new_circuit = QuantumCircuit(circuit.num_qubits)
         new_circuit.metadata = circuit.metadata.copy()
         
-        # Simple optimization: filter out adjacent identical self-inverse gates
-        # In a real production system, this would be more sophisticated
         i = 0
         while i < len(circuit.gates):
             gate = circuit.gates[i]
-            
-            # Check for self-inverse gates (H, X, Y, Z, CX, CZ, SWAP)
             if (i + 1 < len(circuit.gates) and 
                 gate.name == circuit.gates[i+1].name and 
                 gate.targets == circuit.gates[i+1].targets and 
                 gate.controls == circuit.gates[i+1].controls and
                 gate.name in ("h", "x", "y", "z", "cx", "cz", "swap")):
-                i += 2  # Skip both
+                i += 2
                 continue
-            
             new_circuit.gates.append(gate)
             i += 1
-            
         return new_circuit
 
 
@@ -66,7 +55,6 @@ class MergeRotations(TranspilationPass):
         i = 0
         while i < len(circuit.gates):
             gate = circuit.gates[i]
-            
             if (gate.name in ("rx", "ry", "rz") and 
                 i + 1 < len(circuit.gates) and 
                 circuit.gates[i+1].name == gate.name and 
@@ -74,55 +62,43 @@ class MergeRotations(TranspilationPass):
                 
                 from hlquantum.circuit import Parameter
                 a, b = gate.params[0], circuit.gates[i+1].params[0]
-                # Skip merge if either angle is a symbolic Parameter
                 if isinstance(a, Parameter) or isinstance(b, Parameter):
                     new_circuit.gates.append(gate)
                     i += 1
                     continue
                 
-                # Merge the angles and normalise modulo 2π
                 import math
                 new_angle = (a + b) % (2 * math.pi)
-                # If the merged angle is effectively zero, skip the gate entirely
                 if abs(new_angle) < 1e-10 or abs(new_angle - 2 * math.pi) < 1e-10:
                     i += 2
                     continue
-                merged_gate = Gate(
-                    name=gate.name, 
-                    targets=gate.targets, 
-                    params=(new_angle,)
-                )
+                merged_gate = Gate(name=gate.name, targets=gate.targets, params=(new_angle,))
                 new_circuit.gates.append(merged_gate)
                 i += 2
                 continue
-            
             new_circuit.gates.append(gate)
             i += 1
-            
         return new_circuit
 
 
 class Transpiler:
-    """Orchestrates multiple transpilation passes."""
+    """Orchestrates transpilation passes."""
 
     def __init__(self, passes: Optional[List[TranspilationPass]] = None) -> None:
-        self.passes = passes or [
-            RemoveRedundantGates(),
-            MergeRotations(),
-        ]
+        self.passes = passes or [RemoveRedundantGates(), MergeRotations()]
 
     def transpile(self, circuit: QuantumCircuit) -> QuantumCircuit:
-        """Apply all registered passes to the circuit."""
+        """Apply passes to the circuit."""
         optimized = circuit
         for p in self.passes:
             optimized = p.run(optimized)
         return optimized
 
 
-# Default global transpiler
 _default_transpiler = Transpiler()
 
 
 def transpile(circuit: QuantumCircuit) -> QuantumCircuit:
-    """Helper to transpile a circuit using the default transpiler."""
+    """Transpile using default transpiler."""
     return _default_transpiler.transpile(circuit)
+

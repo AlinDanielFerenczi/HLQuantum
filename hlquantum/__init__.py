@@ -1,12 +1,4 @@
-"""
-HLQuantum — A high-level Python package for quantum computing.
-
-HLQuantum (High Level Quantum) provides a unified, backend-agnostic
-interface for building and executing quantum circuits on real and
-simulated quantum hardware. It ships with support for CUDA-Q, Qiskit,
-Cirq, Amazon Braket, and PennyLane — with optional GPU acceleration
-where available.
-"""
+"""HLQuantum — High-level quantum computing in Python."""
 
 __version__ = "0.1.2"
 
@@ -18,6 +10,9 @@ from hlquantum.runner import run
 from hlquantum import transpiler
 from hlquantum import mitigation
 from hlquantum import algorithms
+from hlquantum import operators
+from hlquantum import dynamics
+from hlquantum.operators import Operator, ScalarOperator
 
 __all__ = [
     "__version__",
@@ -31,4 +26,9 @@ __all__ = [
     "transpiler",
     "mitigation",
     "algorithms",
+    "operators",
+    "dynamics",
+    "Operator",
+    "ScalarOperator",
 ]
+

@@ -1,10 +1,4 @@
-"""
-hlquantum.runner
-~~~~~~~~~~~~~~~~~
-
-Convenience helpers so users can do ``hlquantum.run(circuit)`` without
-manually instantiating a backend.
-"""
+"""Convenience helpers for executing quantum circuits."""
 
 from __future__ import annotations
 
@@ -43,42 +37,20 @@ def run(
     backend: Optional[Backend] = None,
     **kwargs,
 ) -> ExecutionResult:
-    """Execute a circuit or kernel and return the result.
-
-    Parameters
-    ----------
-    circuit_or_kernel : Circuit | Kernel
-        What to execute.
-    shots : int, optional
-        Number of measurement shots (default 1000).
-    include_statevector : bool, optional
-        If *True*, attempt to include the state vector in the result.
-    transpile : bool, optional
-        If *True*, apply HLQuantum's transpilation optimizations before running.
-    mitigation : MitigationMethod | list[MitigationMethod], optional
-        Error mitigation method(s) to apply to the results.
-    backend : Backend, optional
-        Override the default backend for this call.
-    **kwargs
-        Forwarded to :meth:`Backend.run`.
-    """
+    """Execute a circuit or kernel and return the result."""
     if isinstance(circuit_or_kernel, Kernel):
         circuit = circuit_or_kernel.circuit
     elif isinstance(circuit_or_kernel, QuantumCircuit):
         circuit = circuit_or_kernel
     else:
-        raise TypeError(
-            f"Expected a Circuit or Kernel, got {type(circuit_or_kernel).__name__}"
-        )
+        raise TypeError(f"Expected Circuit or Kernel, got {type(circuit_or_kernel).__name__}")
 
-    # 1. Transpile if requested
     if transpile:
         circuit = default_transpile(circuit)
 
     be = backend or get_default_backend()
     be.validate(circuit)
     
-    # 2. Execute
     result = be.run(
         circuit, 
         shots=shots, 
@@ -86,10 +58,9 @@ def run(
         **kwargs
     )
 
-    # 3. Mitigate if requested
     if mitigation:
-        from hlquantum.mitigation import MitigationMethod
         methods = mitigation if isinstance(mitigation, list) else [mitigation]
         result = apply_mitigation(result, methods)
 
     return result
+

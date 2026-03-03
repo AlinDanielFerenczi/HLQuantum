@@ -1,12 +1,4 @@
-"""
-hlquantum.circuit
-~~~~~~~~~~~~~~~~~~
-
-Backend-agnostic quantum circuit representation.
-
-A QuantumCircuit is a simple, serialisable description of quantum gates
-and measurements that can be handed to *any* backend for execution.
-"""
+"""Backend-agnostic quantum circuit representation."""
 
 from __future__ import annotations
 
@@ -44,15 +36,7 @@ class Gate:
 
 
 class Circuit:
-    """High-level, backend-agnostic quantum circuit.
-
-    Example
-    -------
-    >>> qc = Circuit(2)
-    >>> qc.h(0).cx(0, 1).measure_all()
-    >>> print(qc)
-    Circuit(num_qubits=2, gates=3)
-    """
+    """High-level quantum circuit."""
 
     def __init__(self, num_qubits: int) -> None:
         if num_qubits < 1:
@@ -61,14 +45,9 @@ class Circuit:
         self.gates: List[Gate] = []
         self.metadata: Dict[str, Any] = {}
 
-    # Alias for users coming from other frameworks
     @property
     def qubits(self):
         return range(self.num_qubits)
-
-    # ------------------------------------------------------------------ #
-    #  Single-qubit gates
-    # ------------------------------------------------------------------ #
 
     def h(self, target: int) -> "Circuit":
         self._validate_qubits(target)
@@ -100,10 +79,6 @@ class Circuit:
         self.gates.append(Gate(name="t", targets=(target,)))
         return self
 
-    # ------------------------------------------------------------------ #
-    #  Parameterised single-qubit gates
-    # ------------------------------------------------------------------ #
-
     def rx(self, target: int, angle: Union[float, Parameter, str]) -> "Circuit":
         self._validate_qubits(target)
         p = Parameter(angle) if isinstance(angle, str) else angle
@@ -121,10 +96,6 @@ class Circuit:
         p = Parameter(angle) if isinstance(angle, str) else angle
         self.gates.append(Gate(name="rz", targets=(target,), params=(p,)))
         return self
-
-    # ------------------------------------------------------------------ #
-    #  Multi-qubit gates
-    # ------------------------------------------------------------------ #
 
     def cx(self, control: int, target: int) -> "Circuit":
         self._validate_qubits(control, target)
@@ -146,10 +117,6 @@ class Circuit:
         self.gates.append(Gate(name="ccx", targets=(target,), controls=(c0, c1)))
         return self
 
-    # ------------------------------------------------------------------ #
-    #  Measurement
-    # ------------------------------------------------------------------ #
-
     def measure(self, target: int) -> "Circuit":
         self._validate_qubits(target)
         self.gates.append(Gate(name="mz", targets=(target,)))
@@ -160,21 +127,15 @@ class Circuit:
             self.measure(q)
         return self
 
-    # ------------------------------------------------------------------ #
-    #  Utilities
-    # ------------------------------------------------------------------ #
-
     @property
     def depth(self) -> int:
-        """Circuit depth — the longest critical path through the circuit."""
+        """Circuit depth (longest critical path)."""
         if not self.gates:
             return 0
-        # Track when each qubit is next free (layer index)
         qubit_layers: Dict[int, int] = {}
         max_depth = 0
         for gate in self.gates:
             involved = list(gate.targets) + list(gate.controls)
-            # This gate starts at the first layer after all involved qubits are free
             layer = max((qubit_layers.get(q, 0) for q in involved), default=0)
             for q in involved:
                 qubit_layers[q] = layer + 1
@@ -183,12 +144,12 @@ class Circuit:
 
     @property
     def gate_count(self) -> int:
-        """Total number of gates in the circuit."""
+        """Total number of gates."""
         return len(self.gates)
 
     @property
     def parameters(self) -> List[Parameter]:
-        """Returns a list of all unique parameters in the circuit."""
+        """Unique parameters in the circuit."""
         params = []
         seen = set()
         for gate in self.gates:
@@ -199,8 +160,7 @@ class Circuit:
         return params
 
     def bind_parameters(self, value_dict: Dict[Union[str, Parameter], float]) -> "Circuit":
-        """Returns a new circuit with parameters replaced by values."""
-        # Normalize dict keys to names
+        """Replace parameters with values and return a new circuit."""
         normalized_values = {}
         for k, v in value_dict.items():
             name = k.name if isinstance(k, Parameter) else k
@@ -214,7 +174,7 @@ class Circuit:
             for p in gate.params:
                 if isinstance(p, Parameter):
                     if p.name not in normalized_values:
-                        raise ValueError(f"Missing value for parameter: {p.name}")
+                        raise ValueError(f"Missing parameter value: {p.name}")
                     new_params.append(normalized_values[p.name])
                 else:
                     new_params.append(p)
@@ -232,38 +192,108 @@ class Circuit:
     def _validate_qubits(self, *qubits: int) -> None:
         for q in qubits:
             if not 0 <= q < self.num_qubits:
-                raise IndexError(
-                    f"Qubit index {q} out of range for circuit with "
-                    f"{self.num_qubits} qubits."
-                )
+                raise IndexError(f"Qubit index {q} out of range.")
 
     def __or__(self, other: "Circuit") -> "Circuit":
         if not isinstance(other, Circuit):
             return NotImplemented
         
-        # Determine the number of qubits for the combined circuit
         num_qubits = max(self.num_qubits, other.num_qubits)
         new_qc = Circuit(num_qubits)
-        
-        # Copy gates from self
         for gate in self.gates:
             new_qc.gates.append(gate)
-            
-        # Copy gates from other
         for gate in other.gates:
             new_qc.gates.append(gate)
-            
         return new_qc
 
     def __repr__(self) -> str:
-        return (
-            f"Circuit(num_qubits={self.num_qubits}, "
-            f"gates={len(self.gates)})"
-        )
+        return f"Circuit(num_qubits={self.num_qubits}, gates={len(self.gates)})"
 
     def __len__(self) -> int:
         return len(self.gates)
 
+    @classmethod
+    def from_qiskit(cls, qc: Any) -> "Circuit":
+        """Import circuit from Qiskit."""
+        new_qc = cls(qc.num_qubits)
+        for instruction in qc.data:
+            op, qargs = instruction.operation, instruction.qubits
+            name = op.name
+            try:
+                targets = [qc.find_bit(q).index for q in qargs]
+            except AttributeError:
+                targets = [q.index for q in qargs]
+            
+            if name in ("rx", "ry", "rz", "p", "u1"):
+                func_name = "rz" if name in ("p", "u1", "rz") else name
+                getattr(new_qc, func_name)(targets[0], float(op.params[0]))
+            elif name in ("cx", "cz"):
+                getattr(new_qc, name)(targets[0], targets[1])
+            elif name == "swap":
+                new_qc.swap(targets[0], targets[1])
+            elif name == "ccx":
+                new_qc.ccx(targets[0], targets[1], targets[2])
+            elif name in ("h", "x", "y", "z", "s", "t"):
+                getattr(new_qc, name)(targets[0])
+            elif name == "measure":
+                new_qc.measure(targets[0])
+            elif name == "barrier":
+                pass
+            else:
+                raise ValueError(f"Unsupported Qiskit gate: {name}")
+        return new_qc
 
-# Alias for backward compatibility
+    @classmethod
+    def from_cirq(cls, circuit: Any) -> "Circuit":
+        """Import circuit from Cirq."""
+        import math
+        qubits = sorted(list(circuit.all_qubits()))
+        qubit_map = {q: i for i, q in enumerate(qubits)}
+        new_qc = cls(max(1, len(qubits)))
+        
+        for moment in circuit:
+            for op in moment:
+                gate = op.gate
+                targets = [qubit_map[q] for q in op.qubits]
+                gate_str = str(gate).lower()
+                
+                if "measure" in gate_str:
+                    new_qc.measure(targets[0])
+                    continue
+                
+                if hasattr(gate, "exponent"):
+                    angle = float(gate.exponent) * math.pi
+                    if "rx" in gate_str or "xpow" in gate_str:
+                        if angle == math.pi: new_qc.x(targets[0])
+                        else: new_qc.rx(targets[0], angle)
+                        continue
+                    if "ry" in gate_str or "ypow" in gate_str:
+                        if angle == math.pi: new_qc.y(targets[0])
+                        else: new_qc.ry(targets[0], angle)
+                        continue
+                    if "rz" in gate_str or "zpow" in gate_str:
+                        if angle == math.pi: new_qc.z(targets[0])
+                        elif angle == math.pi / 2: new_qc.s(targets[0])
+                        elif angle == math.pi / 4: new_qc.t(targets[0])
+                        else: new_qc.rz(targets[0], angle)
+                        continue
+                
+                if gate_str == "h":
+                    new_qc.h(targets[0])
+                elif gate_str in ("x", "y", "z", "s", "t"):
+                    getattr(new_qc, gate_str)(targets[0])
+                elif "cnot" in gate_str or gate_str == "cx":
+                    new_qc.cx(targets[0], targets[1])
+                elif gate_str == "cz":
+                    new_qc.cz(targets[0], targets[1])
+                elif gate_str == "swap":
+                    new_qc.swap(targets[0], targets[1])
+                elif "ccx" in gate_str or "toffoli" in gate_str:
+                    new_qc.ccx(targets[0], targets[1], targets[2])
+                else:
+                    raise ValueError(f"Unsupported Cirq gate: {gate}")
+        return new_qc
+
+
 QuantumCircuit = Circuit
+

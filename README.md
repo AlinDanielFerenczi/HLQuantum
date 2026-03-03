@@ -10,7 +10,8 @@
 - **Asynchronous Execution** — Multi-backend concurrency with `async/await` support.
 - **Unitary-Agnostic @kernel** — Write quantum logic as plain Python functions.
 - **GPU Acceleration** — Unified `GPUConfig` across all backends.
-- **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
+- **Framework Interoperability** — Import circuits from Qiskit and Cirq instantly via `Circuit.from_qiskit()` and `Circuit.from_cirq()`.
+- **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, QPE, AE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
 
 ## Supported Backends
 
@@ -53,7 +54,44 @@ result = hlquantum.run(circuit, shots=1000)
 print(result.most_probable)  # '10101'
 ```
 
-Other algorithms include QFT (`frequency_transform`), VQE (`find_minimum_energy`), QAOA (`optimize_combinatorial`), Bernstein-Vazirani (`find_hidden_pattern`), and more — see the [algorithms API reference](docs/api/algorithms.md) for the full list.
+Other algorithms include QFT (`frequency_transform`), VQE (`find_minimum_energy`), QAOA (`optimize_combinatorial`), Bernstein-Vazirani (`find_hidden_pattern`), Phase Estimation (`estimate_phase`), Amplitude Estimation (`estimate_amplitude`), and more — see the [algorithms API reference](docs/api/algorithms.md) for the full list.
+
+### Importing from Other Frameworks
+
+If you already have code in `qiskit` or `cirq`, you can import it directly into `hlquantum` and execute it across any backend without rewriting.
+
+```python
+from hlquantum.circuit import Circuit
+
+# Load a Qiskit circuit
+import qiskit
+qc_qiskit = qiskit.QuantumCircuit(2)
+qc_qiskit.h(0)
+qc_qiskit.cx(0, 1)
+
+hlq_circuit = Circuit.from_qiskit(qc_qiskit)
+
+# Or a Cirq circuit
+import cirq
+q0, q1 = cirq.LineQubit(0), cirq.LineQubit(1)
+cirq_circuit = cirq.Circuit(cirq.H(q0), cirq.CNOT(q0, q1))
+
+hlq_circuit = Circuit.from_cirq(cirq_circuit)
+```
+
+### Classical Optimizers for VQA
+
+`hlquantum.optimizers` provides classical optimisation routines resilient to quantum noise, perfect for use in VQE and QAOA setups. Currently supported optimisers:
+- **`SPSA`**: Simultaneous Perturbation Stochastic Approximation. Highly efficient for noisy hardware environments.
+- **`COBYLA`**: Constrained Optimization BY Linear Approximations. Derivative-free gradient estimator.
+
+```python
+from hlquantum.optimizers import SPSA, COBYLA
+
+spsa = SPSA(maxiter=300)
+result = spsa.minimize(objective_function, initial_parameters)
+print("Optimal parameters:", result.x)
+```
 
 ## Quantum Pipelines (ML-Style)
 

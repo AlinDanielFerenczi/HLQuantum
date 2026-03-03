@@ -1,30 +1,25 @@
-"""
-hlquantum.mitigation
-~~~~~~~~~~~~~~~~~~~~
-
-Error mitigation hooks and post-processing for quantum results.
-"""
+"""Error mitigation hooks and post-processing."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 if TYPE_CHECKING:
     from hlquantum.result import ExecutionResult
 
 
 class MitigationMethod(ABC):
-    """Abstract base class for an error mitigation technique."""
+    """Base class for error mitigation techniques."""
 
     @abstractmethod
     def apply(self, result: ExecutionResult) -> ExecutionResult:
-        """Apply mitigation to the execution result."""
+        """Apply mitigation to the result."""
         ...
 
 
 class ThresholdMitigation(MitigationMethod):
-    """Simple mitigation that filters out low-probability bitstrings as noise."""
+    """Filters low-probability bitstrings."""
 
     def __init__(self, threshold: float = 0.005) -> None:
         self.threshold = threshold
@@ -34,14 +29,12 @@ class ThresholdMitigation(MitigationMethod):
             return result
 
         from hlquantum.result import ExecutionResult as ER
-
         total_shots = result.shots
         new_counts = {
             k: v for k, v in result.counts.items() 
             if (v / total_shots) >= self.threshold
         }
         
-        # Return a new ExecutionResult instead of mutating the input
         return ER(
             counts=new_counts,
             shots=result.shots,
@@ -53,11 +46,9 @@ class ThresholdMitigation(MitigationMethod):
 
 
 class ReadoutMitigation(MitigationMethod):
-    """Placeholder for Readout Error Mitigation (Matrix Inversion/Calibration)."""
+    """Readout Error Mitigation placeholder."""
 
     def apply(self, result: ExecutionResult) -> ExecutionResult:
-        # Real implementation would require a calibration matrix
-        # For now, this is a hook for future expansion
         return result
 
 
@@ -65,10 +56,10 @@ def apply_mitigation(
     result: ExecutionResult, 
     methods: Optional[List[MitigationMethod]] = None
 ) -> ExecutionResult:
-    """Helper to apply a sequence of mitigation methods to a result."""
+    """Apply a sequence of mitigation methods."""
     if not methods:
         return result
-        
     for method in methods:
         result = method.apply(result)
     return result
+

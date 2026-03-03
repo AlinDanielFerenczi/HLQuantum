@@ -1,9 +1,4 @@
-"""
-hlquantum.exceptions
-~~~~~~~~~~~~~~~~~~~~~
-
-Custom exception hierarchy for HLQuantum.
-"""
+"""Custom exception hierarchy."""
 
 
 class HLQuantumError(Exception):
@@ -11,12 +6,13 @@ class HLQuantumError(Exception):
 
 
 class BackendError(HLQuantumError):
-    """Raised when a backend encounters an execution error."""
+    """Raised on backend execution error."""
 
 
 class CircuitValidationError(HLQuantumError):
-    """Raised when a circuit fails backend validation."""
+    """Raised on circuit validation failure."""
 
 
 class BackendNotAvailableError(HLQuantumError):
-    """Raised when a requested backend is not installed or reachable."""
+    """Raised when backend is unavailable."""
+

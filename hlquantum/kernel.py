@@ -1,9 +1,4 @@
-"""
-hlquantum.kernel
-~~~~~~~~~~~~~~~~~
-
-A decorator that turns a plain Python function into an HLQuantum quantum kernel.
-"""
+"""Quantum kernel decorator and wrapper."""
 
 from __future__ import annotations
 
@@ -14,7 +9,7 @@ from hlquantum.circuit import QuantumCircuit
 
 
 class Kernel:
-    """Wraps a user-defined function into a reusable quantum kernel."""
+    """Wraps a function into a reusable quantum kernel."""
 
     def __init__(self, fn: Callable, num_qubits: int) -> None:
         self._fn = fn
@@ -39,7 +34,8 @@ class Kernel:
 
 
 def kernel(num_qubits: int) -> Callable:
-    """Decorator that transforms a function into a :class:`Kernel`."""
+    """Decorator to transform a function into a Kernel."""
     def decorator(fn: Callable) -> Kernel:
         return Kernel(fn, num_qubits)
     return decorator
+

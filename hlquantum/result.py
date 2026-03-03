@@ -1,35 +1,14 @@
-"""
-hlquantum.result
-~~~~~~~~~~~~~~~~~
-
-Unified result container returned by all backends.
-"""
+"""Unified result container for circuit executions."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 
 @dataclass
 class ExecutionResult:
-    """Result of a quantum circuit execution.
-
-    Attributes
-    ----------
-    counts : dict[str, int]
-        Measurement outcome counts, e.g. ``{"00": 502, "11": 498}``.
-    shots : int
-        Total number of shots executed.
-    backend_name : str
-        Name of the backend that produced this result.
-    raw : Any
-        Backend-specific raw result object (for advanced users).
-    state_vector : Any, optional
-        The state vector if requested and supported by the backend.
-    metadata : dict
-        Any additional metadata from the execution.
-    """
+    """Result of a quantum circuit execution."""
 
     counts: Dict[str, int] = field(default_factory=dict)
     shots: int = 0
@@ -38,12 +17,8 @@ class ExecutionResult:
     state_vector: Optional[Any] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    # ------------------------------------------------------------------ #
-    #  Derived helpers
-    # ------------------------------------------------------------------ #
-
     def get_state_vector(self) -> Any:
-        """Return the state vector as a numpy array, if available."""
+        """Return the state vector as a numpy array."""
         if self.state_vector is None:
             return None
         import numpy as np
@@ -59,7 +34,7 @@ class ExecutionResult:
     def most_probable(self) -> Optional[str]:
         if not self.counts:
             return None
-        return max(self.counts, key=self.counts.get)  # type: ignore[arg-type]
+        return max(self.counts, key=self.counts.get)
 
     def expectation_value(self) -> float:
         if self.shots == 0:
@@ -76,3 +51,4 @@ class ExecutionResult:
             f"ExecutionResult(shots={self.shots}, "
             f"backend={self.backend_name!r}, top_counts={top})"
         )
+
