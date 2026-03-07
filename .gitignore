@@ -66,11 +66,13 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+.venv_wsl
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+.ruff_cache/
 
 # Spyder project settings
 .spyderproject

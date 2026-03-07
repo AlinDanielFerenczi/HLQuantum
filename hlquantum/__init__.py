@@ -1,6 +1,6 @@
 """HLQuantum — High-level quantum computing in Python."""
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 from hlquantum.circuit import QuantumCircuit
 from hlquantum.result import ExecutionResult
@@ -13,6 +13,11 @@ from hlquantum import algorithms
 from hlquantum import operators
 from hlquantum import dynamics
 from hlquantum.operators import Operator, ScalarOperator
+
+try:
+    from hlquantum import mcp
+except ImportError:
+    mcp = None  # Extra dependencies not installed
 
 __all__ = [
     "__version__",
@@ -31,4 +36,7 @@ __all__ = [
     "Operator",
     "ScalarOperator",
 ]
+
+if mcp is not None:
+    __all__.append("mcp")
 
