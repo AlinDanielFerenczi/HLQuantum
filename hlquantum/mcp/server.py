@@ -1,3 +1,6 @@
+import os
+from typing import List, Dict, Any, Optional
+
 try:
     from mcp.server.fastmcp import FastMCP
 except ImportError:
@@ -10,25 +13,51 @@ class QuantumMCPServer:
     """
     Wraps FastMCP to expose custom quantum algorithms as MCP tools.
     Requires: pip install hlquantum[mcp]
-
-    Example:
-        server = QuantumMCPServer("my-quantum-algorithms")
-
-        @server.tool(description="Run a VQE on a random Hamiltonian")
-        def run_vqe(depth: int) -> str:
-            return str(hlq.algorithms.vqe.run(depth=depth))
-
-        if __name__ == "__main__":
-            server.run()
     """
 
-    def __init__(self, name: str = "quantum-mcp"):
+    def __init__(self, name: str = "quantum-mcp", enable_raw_tools: bool = False):
         if FastMCP is None:
             raise ImportError(
                 "The 'mcp' dependency is required. "
                 "Install it via `pip install hlquantum[mcp]` or `pip install mcp`."
             )
         self.server = FastMCP(name)
+        if enable_raw_tools:
+            self._register_raw_tools()
+
+    def _register_raw_tools(self):
+        """Register core hlquantum operations as tools."""
+
+        @self.server.tool(description="Execute a quantum circuit from a list of gate definitions.")
+        def run_raw_circuit(num_qubits: int, gates: List[Dict[str, Any]], shots: int = 1000) -> str:
+            """
+            `gates` example: [{"name": "h", "targets": [0]}, {"name": "cx", "targets": [1], "controls": [0]}]
+            """
+            try:
+                qc = hlq.QuantumCircuit(num_qubits)
+                for g in gates:
+                    func = getattr(qc, g["name"])
+                    args = g.get("targets", []) + g.get("controls", [])
+                    params = g.get("params", [])
+                    func(*args, *params)
+                
+                # Automatically add measurements if not present
+                if not any(g["name"].startswith("m") for g in gates):
+                    qc.measure_all()
+                
+                result = hlq.run(qc, shots=shots)
+                return str(result)
+            except Exception as e:
+                return f"Error: {e}"
+
+        @self.server.tool(description="Get available hlquantum backends and GPU capabilities.")
+        def get_system_info() -> str:
+            from hlquantum.runner import get_default_backend
+            info = {
+                "gpus": hlq.detect_gpus(),
+                "default_backend": str(get_default_backend())
+            }
+            return str(info)
 
     def tool(self, description: str = None):
         return self.server.tool(description=description)
@@ -44,16 +73,17 @@ class QuantumMCPServer:
 
 
 def serve():
-    """Entry point for `python -m hlquantum.mcp`. Starts the default built-in server."""
+    """Entry point for `python -m hlquantum.mcp`. Enabled raw tools via HLQUANTUM_MCP_RAW=1 environment variable."""
     if FastMCP is None:
         raise ImportError(
             "The 'mcp' dependency is required. "
             "Install it via `pip install hlquantum[mcp]` or `pip install mcp`."
         )
 
-    mcp = FastMCP("hlquantum-mcp")
+    enable_raw = os.getenv("HLQUANTUM_MCP_RAW", "0") == "1"
+    server = QuantumMCPServer("hlquantum-mcp", enable_raw_tools=enable_raw)
 
-    @mcp.tool(description="Simulate an n-qubit uniform superposition circuit and return measurement counts.")
+    @server.tool(description="Simulate an n-qubit uniform superposition circuit and return measurement counts.")
     def simulate_test_circuit(num_qubits: int = 2) -> str:
         circuit = hlq.QuantumCircuit(num_qubits)
         for i in range(num_qubits):
@@ -65,4 +95,4 @@ def serve():
         except Exception as e:
             return f"Error: {e}"
 
-    mcp.run()
+    server.run()
