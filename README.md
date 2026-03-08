@@ -12,6 +12,7 @@
 - **GPU Acceleration** — Unified `GPUConfig` across all backends.
 - **Framework Interoperability** — Import circuits from Qiskit and Cirq instantly via `Circuit.from_qiskit()` and `Circuit.from_cirq()`.
 - **Out-of-the-Box Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, QPE, AE, quantum arithmetic, and parameter-shift gradients — all accessible via friendly aliases like `quantum_search()` and `find_minimum_energy()`.
+- **Model Context Protocol (MCP)** — Expose your quantum algorithms as tools for AI agents (Claude, Gemini, etc.) and give them raw access to the HLQuantum stack.
 
 ## Supported Backends
 
@@ -23,6 +24,7 @@
 | `BraketBackend`    | [Amazon Braket](https://aws.amazon.com/braket/)        | `pip install hlquantum[braket]`    |
 | `PennyLaneBackend` | [Xanadu PennyLane](https://pennylane.ai)               | `pip install hlquantum[pennylane]` |
 | `IonQBackend`      | [IonQ](https://ionq.com) (via qiskit-ionq)             | `pip install hlquantum[ionq]`      |
+| `MCP Server`       | [Model Context Protocol](https://modelcontextprotocol.io) | `pip install hlquantum[mcp]`       |
 
 ## Installation
 
@@ -160,6 +162,42 @@ wf.add(Branch(
 
 results = asyncio.run(wf.run())
 ```
+ 
+## AI-Driven Quantum (MCP)
+ 
+HLQuantum supports the **Model Context Protocol (MCP)**, allowing you to instantly expose your quantum logic as tools for AI assistants.
+ 
+### 1. Default Server
+Launch a pre-configured MCP server that provides basic quantum simulation capabilities:
+ 
+```bash
+# Basic simulation tools
+python -m hlquantum.mcp
+ 
+# Enable raw library access (circuit building, system info)
+$env:HLQUANTUM_MCP_RAW="1"
+python -m hlquantum.mcp
+```
+ 
+### 2. Custom MCP Tools
+Expose your own custom algorithms to an AI agent in just a few lines:
+ 
+```python
+from hlquantum.mcp import QuantumMCPServer
+import hlquantum as hlq
+ 
+server = QuantumMCPServer(name="my-quantum-agent")
+ 
+@server.tool(description="Runs a custom Grover search")
+def search_database(num_qubits: int, target: str):
+    circuit = hlq.algorithms.grover(num_qubits, [target])
+    return str(hlq.run(circuit))
+ 
+if __name__ == "__main__":
+    server.run()
+```
+ 
+See the [MCP Documentation](docs/mcp.md) for full configuration and examples.
 
 ## Backend Examples
 

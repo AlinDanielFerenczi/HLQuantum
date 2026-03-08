@@ -30,4 +30,5 @@ nav:
           - Transpiler: api/transpiler.md
           - Mitigation: api/mitigation.md
     - GPU Acceleration: gpu.md
+    - AI-Driven Quantum (MCP): mcp.md
     - Examples: examples.md

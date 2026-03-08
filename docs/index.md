@@ -36,6 +36,7 @@ result = hlq.run(bell, shots=1000)
 - **Unitary-Agnostic `@kernel`** — Write quantum logic as plain Python functions.
 - **GPU Acceleration** — Unified `GPUConfig` across all backends.
 - **Built-in Algorithms** — QFT, Grover, Bernstein-Vazirani, Deutsch-Jozsa, VQE, QAOA, GQE, arithmetic circuits, and parameter-shift gradients.
+- **Model Context Protocol (MCP)** — Expose your quantum algorithms and raw stack to AI agents.
 - **Transpilation** — Built-in optimisation passes (redundant-gate removal, rotation merging).
 - **Error Mitigation** — Pluggable post-processing for noisy results.
 
@@ -60,4 +61,5 @@ result = hlq.run(bell, shots=1000)
 - [**Transpiler**](api/transpiler.md) — Optimisation passes.
 - [**Mitigation**](api/mitigation.md) — Error mitigation techniques.
 - [**GPU Acceleration**](gpu.md) — Multi-GPU and precision configuration.
+- [**AI-Driven Quantum (MCP)**](mcp.md) — Expose your algorithms to AI assistants.
 - [**Examples**](examples.md) — End-to-end demos and tutorials.
