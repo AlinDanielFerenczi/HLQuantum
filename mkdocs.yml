@@ -1,4 +1,5 @@
 site_name: HLQuantum Documentation
+site_url: https://alin-daniel-ferenczi.github.io/HLQuantum/
 theme:
     name: material
     palette:
