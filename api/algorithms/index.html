@@ -1,0 +1,4444 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://alin-daniel-ferenczi.github.io/HLQuantum/api/algorithms/">
+      
+      
+        <link rel="prev" href="../backends/">
+      
+      
+        <link rel="next" href="../layers/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Algorithms - HLQuantum Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#algorithms-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="HLQuantum Documentation" class="md-header__button md-logo" aria-label="HLQuantum Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HLQuantum Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Algorithms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../core/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../backends/braket/" class="md-tabs__link">
+          
+  
+  
+  Backend Configurations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../gpu/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  GPU Acceleration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mcp/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  AI-Driven Quantum (MCP)
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HLQuantum Documentation" class="md-nav__button md-logo" aria-label="HLQuantum Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HLQuantum Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#friendly-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Friendly Aliases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foundational-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foundational Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quantum-fourier-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantum Fourier Transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qft
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.frequency_transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        frequency_transform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qft
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grovers-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grover's Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grover.grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bernstein-vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bernstein-Vazirani
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bernstein_vazirani
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.find_hidden_pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_hidden_pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bernstein_vazirani
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="bernstein_vazirani">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deutsch-jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deutsch-Jozsa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deutsch_jozsa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.check_balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_balance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.balanced_oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        balanced_oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.constant_oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        constant_oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deutsch_jozsa
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="deutsch_jozsa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantum-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantum Arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_numbers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_three_bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_three_bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_two_bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_two_bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.full_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        full_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.half_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        half_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.ripple_carry_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ripple_carry_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variational-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variational &amp; Optimisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variational &amp; Optimisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vqe-variational-quantum-eigensolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VQE (Variational Quantum Eigensolver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vqe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe.hardware_efficient_ansatz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hardware_efficient_ansatz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe.vqe_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vqe_solve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vqe_solve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qaoa-quantum-approximate-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QAOA (Quantum Approximate Optimisation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qaoa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.optimize_combinatorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize_combinatorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qaoa_solve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qaoa_solve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gqe-generative-quantum-eigensolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GQE (Generative Quantum Eigensolver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gqe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe.learn_distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        learn_distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe.gqe_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gqe_solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differentiable-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differentiable Programming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Differentiable Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-shift-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter-Shift Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.compute_gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_gradient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parameter_shift_gradient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parameter_shift_gradient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layers & Pipelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transpiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transpiler
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mitigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mitigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backend Configurations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Backend Configurations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/braket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Amazon Braket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/cirq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cirq
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/cudaq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CUDA-Q
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/ionq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IonQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/pennylane/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PennyLane
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backends/qiskit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qiskit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gpu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPU Acceleration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI-Driven Quantum (MCP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#friendly-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Friendly Aliases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foundational-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foundational Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quantum-fourier-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantum Fourier Transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qft
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.frequency_transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        frequency_transform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qft
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qft.qft--notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grovers-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grover's Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grover.grover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grover
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="grover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bernstein-vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bernstein-Vazirani
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bernstein_vazirani
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.find_hidden_pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        find_hidden_pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bernstein_vazirani
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="bernstein_vazirani">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deutsch-jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deutsch-Jozsa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deutsch_jozsa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.check_balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_balance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.balanced_oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        balanced_oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.constant_oracle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        constant_oracle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        deutsch_jozsa
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="deutsch_jozsa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantum-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantum Arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        arithmetic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_numbers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_three_bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_three_bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.add_two_bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_two_bits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.full_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        full_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.half_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        half_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.arithmetic.ripple_carry_adder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ripple_carry_adder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variational-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variational &amp; Optimisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variational &amp; Optimisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vqe-variational-quantum-eigensolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VQE (Variational Quantum Eigensolver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vqe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe.hardware_efficient_ansatz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hardware_efficient_ansatz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.vqe.vqe_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vqe_solve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vqe_solve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qaoa-quantum-approximate-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QAOA (Quantum Approximate Optimisation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qaoa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.optimize_combinatorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        optimize_combinatorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qaoa_solve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qaoa_solve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.qaoa.qaoa_solve--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gqe-generative-quantum-eigensolver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GQE (Generative Quantum Eigensolver)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gqe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe.learn_distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        learn_distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.gqe.gqe_solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gqe_solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differentiable-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differentiable Programming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Differentiable Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-shift-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter-Shift Gradients
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.compute_gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compute_gradient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parameter_shift_gradient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="parameter_shift_gradient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hlquantum.algorithms.grad.parameter_shift_gradient--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="algorithms-api-reference">Algorithms API Reference</h1>
+<p>HLQuantum ships with a library of ready-to-use quantum algorithms.
+Each module exposes a <strong>canonical</strong> function name as well as a <strong>friendly alias</strong> for readability.</p>
+<h2 id="friendly-aliases">Friendly Aliases</h2>
+<table>
+<thead>
+<tr>
+<th>Alias (friendly)</th>
+<th>Canonical function</th>
+<th>Module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>frequency_transform</code></td>
+<td><code>qft(num_qubits, inverse)</code></td>
+<td><code>algorithms.qft</code></td>
+</tr>
+<tr>
+<td><code>quantum_search</code></td>
+<td><code>grover(num_qubits, target, iters)</code></td>
+<td><code>algorithms.grover</code></td>
+</tr>
+<tr>
+<td><code>find_hidden_pattern</code></td>
+<td><code>bernstein_vazirani(secret)</code></td>
+<td><code>algorithms.bernstein_vazirani</code></td>
+</tr>
+<tr>
+<td><code>check_balance</code></td>
+<td><code>deutsch_jozsa(num_qubits, oracle)</code></td>
+<td><code>algorithms.deutsch_jozsa</code></td>
+</tr>
+<tr>
+<td><code>add_two_bits</code></td>
+<td><code>half_adder()</code></td>
+<td><code>algorithms.arithmetic</code></td>
+</tr>
+<tr>
+<td><code>add_three_bits</code></td>
+<td><code>full_adder()</code></td>
+<td><code>algorithms.arithmetic</code></td>
+</tr>
+<tr>
+<td><code>add_numbers</code></td>
+<td><code>ripple_carry_adder(num_bits)</code></td>
+<td><code>algorithms.arithmetic</code></td>
+</tr>
+<tr>
+<td><code>find_minimum_energy</code></td>
+<td><code>vqe_solve(...)</code></td>
+<td><code>algorithms.vqe</code></td>
+</tr>
+<tr>
+<td><code>variational_circuit</code></td>
+<td><code>hardware_efficient_ansatz(...)</code></td>
+<td><code>algorithms.vqe</code></td>
+</tr>
+<tr>
+<td><code>optimize_combinatorial</code></td>
+<td><code>qaoa_solve(...)</code></td>
+<td><code>algorithms.qaoa</code></td>
+</tr>
+<tr>
+<td><code>learn_distribution</code></td>
+<td><code>gqe_solve(...)</code></td>
+<td><code>algorithms.gqe</code></td>
+</tr>
+<tr>
+<td><code>compute_gradient</code></td>
+<td><code>parameter_shift_gradient(...)</code></td>
+<td><code>algorithms.grad</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-python">from hlquantum import algorithms
+
+# Use friendly aliases
+qft_circuit = algorithms.frequency_transform(num_qubits=4)
+bv_circuit  = algorithms.find_hidden_pattern(&quot;1011&quot;)
+search      = algorithms.quantum_search(num_qubits=3, target_states=[&quot;101&quot;])
+
+# Variational / optimisation
+from hlquantum.algorithms import find_minimum_energy, optimize_combinatorial, compute_gradient
+
+# Parameter-shift gradients
+grads = compute_gradient(circuit, {&quot;theta&quot;: 0.5})
+</code></pre>
+<hr />
+<h2 id="foundational-algorithms">Foundational Algorithms</h2>
+<h3 id="quantum-fourier-transform">Quantum Fourier Transform</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.qft"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.qft
+~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Quantum Fourier Transform (QFT) implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.qft.frequency_transform" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">frequency_transform</span> <span class="o">=</span> <span class="n">qft</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>qft</code> — transform quantum amplitudes into the frequency domain.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.qft.qft" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">qft</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a Quantum Fourier Transform circuit.</p>
+<h4 id="hlquantum.algorithms.qft.qft--parameters">Parameters</h4>
+<p>num_qubits : int
+    Number of qubits to apply the QFT on.
+inverse : bool, optional
+    If True, generate the Inverse QFT (IQFT).</p>
+<h4 id="hlquantum.algorithms.qft.qft--returns">Returns</h4>
+<p>Circuit
+    The QFT or IQFT circuit.</p>
+<h4 id="hlquantum.algorithms.qft.qft--notes">Notes</h4>
+<p>Controlled-Phase(θ) is decomposed as:
+    Rz(target, θ/2)  →  CX(control, target)  →  Rz(target, -θ/2)  →
+    CX(control, target)  →  Rz(control, θ/2)</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/qft.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">qft</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Quantum Fourier Transform circuit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_qubits : int</span>
+<span class="sd">        Number of qubits to apply the QFT on.</span>
+<span class="sd">    inverse : bool, optional</span>
+<span class="sd">        If True, generate the Inverse QFT (IQFT).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Circuit</span>
+<span class="sd">        The QFT or IQFT circuit.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Controlled-Phase(θ) is decomposed as:</span>
+<span class="sd">        Rz(target, θ/2)  →  CX(control, target)  →  Rz(target, -θ/2)  →</span>
+<span class="sd">        CX(control, target)  →  Rz(control, θ/2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">inverse</span><span class="p">:</span>
+        <span class="c1"># Inverse QFT — reverse of forward QFT</span>
+        <span class="c1"># 1. Undo swaps</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">num_qubits</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># 2. Apply inverse rotations in reverse order</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">))</span>
+                <span class="c1"># Decompose controlled-phase(-angle) = CP(angle)†</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Standard QFT</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">))</span>
+                <span class="c1"># Decompose CP(angle) into CX + Rz</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Swaps</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">num_qubits</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="grovers-search">Grover's Search</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.grover"></a>
+    <div class="doc doc-contents first">
+
+        <p>Grover's search algorithm implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.grover.grover" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">grover</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">target_states</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a Grover's search circuit.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/grover.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">grover</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">target_states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Grover&#39;s search circuit.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">iterations</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">iterations</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="n">num_qubits</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_states</span><span class="p">))))</span>
+
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ancilla</span> <span class="o">=</span> <span class="n">num_qubits</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">ancilla</span><span class="p">)</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">ancilla</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">target_states</span><span class="p">:</span>
+            <span class="n">_apply_bitstring_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ancilla</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="n">_apply_mcz</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="bernstein-vazirani">Bernstein-Vazirani</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.bernstein_vazirani"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.bernstein_vazirani
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Bernstein-Vazirani algorithm implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.bernstein_vazirani.find_hidden_pattern" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">find_hidden_pattern</span> <span class="o">=</span> <span class="n">bernstein_vazirani</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>bernstein_vazirani</code> — discover a hidden bitstring pattern in one query.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bernstein_vazirani</span><span class="p">(</span><span class="n">secret_bitstring</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a Bernstein-Vazirani circuit to find a secret bitstring.</p>
+<h4 id="hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--parameters">Parameters</h4>
+<p>secret_bitstring : str
+    The secret bitstring (e.g., "1011") that the algorithm will discover.</p>
+<h4 id="hlquantum.algorithms.bernstein_vazirani.bernstein_vazirani--returns">Returns</h4>
+<p>Circuit
+    The Bernstein-Vazirani circuit.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/bernstein_vazirani.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bernstein_vazirani</span><span class="p">(</span><span class="n">secret_bitstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Bernstein-Vazirani circuit to find a secret bitstring.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    secret_bitstring : str</span>
+<span class="sd">        The secret bitstring (e.g., &quot;1011&quot;) that the algorithm will discover.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Circuit</span>
+<span class="sd">        The Bernstein-Vazirani circuit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">secret_bitstring</span><span class="p">)</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># n qubits + 1 ancilla</span>
+
+    <span class="c1"># Initialize ancilla to |-&gt;</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># Apply Hadamard to all input qubits</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Apply Oracle: CX from q_i to ancilla if bit_i is 1</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">secret_bitstring</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bit</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># Apply Hadamard to input qubits again</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Measure input qubits</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="deutsch-jozsa">Deutsch-Jozsa</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.deutsch_jozsa"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.deutsch_jozsa
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Deutsch-Jozsa algorithm implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.deutsch_jozsa.check_balance" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">check_balance</span> <span class="o">=</span> <span class="n">deutsch_jozsa</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>deutsch_jozsa</code> — check whether a function is constant or balanced.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.deutsch_jozsa.balanced_oracle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">balanced_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Example of a balanced oracle (CX from q0 to ancilla).</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/deutsch_jozsa.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">balanced_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">:</span> <span class="n">Circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Example of a balanced oracle (CX from q0 to ancilla).&quot;&quot;&quot;</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">num_qubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.deutsch_jozsa.constant_oracle" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">constant_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Example of a constant oracle (does nothing).</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/deutsch_jozsa.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">constant_oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">:</span> <span class="n">Circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Example of a constant oracle (does nothing).&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">deutsch_jozsa</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">oracle</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a Deutsch-Jozsa circuit.</p>
+<h4 id="hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--parameters">Parameters</h4>
+<p>num_qubits : int
+    Number of input qubits (n).
+oracle : Callable[[Circuit], None]
+    A function that applies the oracle to a Circuit of size n+1.</p>
+<h4 id="hlquantum.algorithms.deutsch_jozsa.deutsch_jozsa--returns">Returns</h4>
+<p>Circuit
+    The Deutsch-Jozsa circuit.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/deutsch_jozsa.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">deutsch_jozsa</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">oracle</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Circuit</span><span class="p">],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a Deutsch-Jozsa circuit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    num_qubits : int</span>
+<span class="sd">        Number of input qubits (n).</span>
+<span class="sd">    oracle : Callable[[Circuit], None]</span>
+<span class="sd">        A function that applies the oracle to a Circuit of size n+1.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Circuit</span>
+<span class="sd">        The Deutsch-Jozsa circuit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 1. Initialize ancilla to |-&gt;</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+
+    <span class="c1"># 2. Apply Hadamard to all input qubits</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># 3. Apply the Oracle</span>
+    <span class="n">oracle</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+
+    <span class="c1"># 4. Apply Hadamard to input qubits again</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># 5. Measure input qubits</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="quantum-arithmetic">Quantum Arithmetic</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.arithmetic"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.arithmetic
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Quantum arithmetic operations (Adders, etc.).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.arithmetic.add_numbers" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">add_numbers</span> <span class="o">=</span> <span class="n">ripple_carry_adder</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>ripple_carry_adder</code> — add two n-bit numbers.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.arithmetic.add_three_bits" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">add_three_bits</span> <span class="o">=</span> <span class="n">full_adder</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>full_adder</code> — add two bits with a carry-in.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.arithmetic.add_two_bits" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">add_two_bits</span> <span class="o">=</span> <span class="n">half_adder</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>half_adder</code> — add two single-bit inputs.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.arithmetic.full_adder" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">full_adder</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a 1-bit full adder.</p>
+<p>Qubits:
+- 0, 1, 2: Input bits (A, B, Cin)
+- 3: Sum (A ^ B ^ Cin)
+- 4: Carry out (Cout)</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">full_adder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a 1-bit full adder.</span>
+
+<span class="sd">    Qubits:</span>
+<span class="sd">    - 0, 1, 2: Input bits (A, B, Cin)</span>
+<span class="sd">    - 3: Sum (A ^ B ^ Cin)</span>
+<span class="sd">    - 4: Carry out (Cout)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># Binary addition: A + B + Cin</span>
+    <span class="c1"># Sum bits</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Carry out: (A&amp;B) | (B&amp;Cin) | (A&amp;Cin)</span>
+    <span class="c1"># Simulating with CCX</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.arithmetic.half_adder" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">half_adder</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate a 2-qubit half adder.</p>
+<p>Qubits:
+- 0, 1: Input bits (A, B)
+- 2: Sum (A ^ B)
+- 3: Carry (A &amp; B)</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">half_adder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a 2-qubit half adder.</span>
+
+<span class="sd">    Qubits:</span>
+<span class="sd">    - 0, 1: Input bits (A, B)</span>
+<span class="sd">    - 2: Sum (A ^ B)</span>
+<span class="sd">    - 3: Carry (A &amp; B)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="c1"># Sum: XOR gate</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># Carry: AND/Toffoli gate</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.arithmetic.ripple_carry_adder" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">ripple_carry_adder</span><span class="p">(</span><span class="n">num_bits</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generate an n-bit ripple-carry adder.</p>
+
+
+<details class="qubit-layout" open>
+  <summary>Qubit layout</summary>
+  <p>a[0..n-1]   — first operand
+b[0..n-1]   — second operand (sum is written here in-place)
+c[0..n]     — carry chain (c[0]=carry-in, c[n]=carry-out)</p>
+</details>        <p>Total qubits: 3*num_bits + 1
+After execution b[i] holds the i-th bit of (A+B) and c[n] holds the
+final carry-out.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/arithmetic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">ripple_carry_adder</span><span class="p">(</span><span class="n">num_bits</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate an n-bit ripple-carry adder.</span>
+
+<span class="sd">    Qubit layout:</span>
+<span class="sd">        a[0..n-1]   — first operand</span>
+<span class="sd">        b[0..n-1]   — second operand (sum is written here in-place)</span>
+<span class="sd">        c[0..n]     — carry chain (c[0]=carry-in, c[n]=carry-out)</span>
+
+<span class="sd">    Total qubits: 3*num_bits + 1</span>
+<span class="sd">    After execution b[i] holds the i-th bit of (A+B) and c[n] holds the</span>
+<span class="sd">    final carry-out.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">num_bits</span>
+    <span class="n">total_qubits</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># a[n], b[n], c[n+1]</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">total_qubits</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">i</span>
+
+    <span class="k">def</span> <span class="nf">b</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">i</span>
+
+    <span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">i</span>
+
+    <span class="c1"># Forward pass — propagate carries</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="c1"># Carry: c[i+1] = MAJ(a[i], b[i], c[i])</span>
+        <span class="c1"># Step 1: XOR partial sums</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>          <span class="c1"># b[i] ^= a[i]</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>          <span class="c1"># b[i] ^= c[i]  →  b[i] = a[i]⊕b[i]⊕c[i] (partial sum)</span>
+        <span class="c1"># Step 2: Carry generation  c[i+1] = (a[i]·c[i]) ⊕ (b_orig[i]·c[i]) ⊕ (a[i]·b_orig[i])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>          <span class="c1"># restore helper</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="n">b</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>          <span class="c1"># restore c[i]</span>
+
+    <span class="c1"># b already holds the XOR (partial sum) from the forward pass.</span>
+    <span class="c1"># The full sum bit is simply xor of a, b_orig, c_in which was</span>
+    <span class="c1"># accumulated into b during the forward pass.  No additional</span>
+    <span class="c1"># work needed — b[i] already equals Sum[i].\n</span>
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+<h2 id="variational-optimisation">Variational &amp; Optimisation</h2>
+<h3 id="vqe-variational-quantum-eigensolver">VQE (Variational Quantum Eigensolver)</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.vqe"></a>
+    <div class="doc doc-contents first">
+
+        <p>Variational Quantum Eigensolver (VQE) utilities.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.vqe.hardware_efficient_ansatz" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">hardware_efficient_ansatz</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>A standard Hardware-Efficient Ansatz (HEA) template.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/vqe.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hardware_efficient_ansatz</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A standard Hardware-Efficient Ansatz (HEA) template.&quot;&quot;&quot;</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">else</span> <span class="n">params</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.vqe.vqe_solve" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">vqe_solve</span><span class="p">(</span><span class="n">ansatz</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Solve an optimization problem using VQE.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/vqe.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">vqe_solve</span><span class="p">(</span>
+    <span class="n">ansatz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Circuit</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="n">Circuit</span><span class="p">]],</span>
+    <span class="n">initial_params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shots</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve an optimization problem using VQE.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span> <span class="k">as</span> <span class="n">_minimize</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;scipy is required for vqe_solve. Install it with: pip install scipy&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ansatz</span><span class="p">,</span> <span class="n">Circuit</span><span class="p">):</span>
+            <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ansatz</span><span class="o">.</span><span class="n">parameters</span><span class="p">)}</span>
+            <span class="n">circuit</span> <span class="o">=</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">bind_parameters</span><span class="p">(</span><span class="n">param_map</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">circuit</span> <span class="o">=</span> <span class="n">ansatz</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mz&quot;</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">gates</span><span class="p">):</span>
+            <span class="n">circuit</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">shots</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">optimizer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;COBYLA&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;fun&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;fun&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">),</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">),</span>
+        <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">res</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="qaoa-quantum-approximate-optimisation">QAOA (Quantum Approximate Optimisation)</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.qaoa"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.qaoa
+~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Quantum Approximate Optimization Algorithm (QAOA) implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.qaoa.optimize_combinatorial" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">optimize_combinatorial</span> <span class="o">=</span> <span class="n">qaoa_solve</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>qaoa_solve</code> — solve combinatorial optimisation problems (e.g. Max-Cut).</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.qaoa.qaoa_solve" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">qaoa_solve</span><span class="p">(</span><span class="n">cost_hamiltonian</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Solve an optimization problem using QAOA.</p>
+<h4 id="hlquantum.algorithms.qaoa.qaoa_solve--parameters">Parameters</h4>
+<p>cost_hamiltonian : list[dict]
+    Representation of the cost function (e.g., Max-Cut).
+    Each dict should have 'qubits': (i, j) and 'weight': float.
+p : int
+    Number of QAOA layers (steps).
+optimizer : Callable, optional
+    A classical optimizer (defaults to scipy.optimize.minimize).
+shots : int, optional
+    Number of shots for expectation value estimation.
+**kwargs
+    Forwarded to the runner.</p>
+<h4 id="hlquantum.algorithms.qaoa.qaoa_solve--returns">Returns</h4>
+<p>dict
+    Optimization results including optimal beta/gamma and max-cut value.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/qaoa.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">qaoa_solve</span><span class="p">(</span>
+    <span class="n">cost_hamiltonian</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">p</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shots</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve an optimization problem using QAOA.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cost_hamiltonian : list[dict]</span>
+<span class="sd">        Representation of the cost function (e.g., Max-Cut).</span>
+<span class="sd">        Each dict should have &#39;qubits&#39;: (i, j) and &#39;weight&#39;: float.</span>
+<span class="sd">    p : int</span>
+<span class="sd">        Number of QAOA layers (steps).</span>
+<span class="sd">    optimizer : Callable, optional</span>
+<span class="sd">        A classical optimizer (defaults to scipy.optimize.minimize).</span>
+<span class="sd">    shots : int, optional</span>
+<span class="sd">        Number of shots for expectation value estimation.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Forwarded to the runner.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Optimization results including optimal beta/gamma and max-cut value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1. Determine number of qubits</span>
+    <span class="n">all_qubits</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">cost_hamiltonian</span><span class="p">:</span>
+        <span class="n">all_qubits</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="s1">&#39;qubits&#39;</span><span class="p">])</span>
+    <span class="n">n_qubits</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_qubits</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">all_qubits</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="c1"># 2. Build the QAOA Ansatz function</span>
+    <span class="k">def</span> <span class="nf">build_ansatz</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Circuit</span><span class="p">:</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="n">params</span><span class="p">[:</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">p</span><span class="p">:]</span>
+
+        <span class="n">qc</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)</span>
+
+        <span class="c1"># Initial state: Hadamards on all qubits</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+            <span class="c1"># Cost Layer: e^(-i * gamma * H_C)</span>
+            <span class="c1"># For each term ZZ_ij, we apply: CX(i,j), RZ(j, 2*gamma*w), CX(i,j)</span>
+            <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">cost_hamiltonian</span><span class="p">:</span>
+                <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">term</span><span class="p">[</span><span class="s1">&#39;qubits&#39;</span><span class="p">]</span>
+                <span class="n">w</span> <span class="o">=</span> <span class="n">term</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">gamma</span><span class="p">[</span><span class="n">step</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span>
+
+            <span class="c1"># Mixer Layer: e^(-i * beta * H_X)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">):</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">beta</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">qc</span>
+
+    <span class="c1"># 3. Objective function for optimizer</span>
+    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">qc</span> <span class="o">=</span> <span class="n">build_ansatz</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">shots</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># We minimize the cost (negative for max-cut)</span>
+        <span class="c1"># Expectation result is a simplification</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">()</span>
+
+    <span class="c1"># 4. Optimization</span>
+    <span class="n">initial_params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="c1"># Gammas followed by Betas</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;scipy is required for qaoa_solve.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">optimizer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;COBYLA&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;fun&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;fun&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">),</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">),</span>
+        <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">,</span>
+        <span class="s2">&quot;n_qubits&quot;</span><span class="p">:</span> <span class="n">n_qubits</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h3 id="gqe-generative-quantum-eigensolver">GQE (Generative Quantum Eigensolver)</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.gqe"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.gqe
+~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Generative Quantum Eigensolver (GQE) implementation.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.gqe.learn_distribution" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">learn_distribution</span> <span class="o">=</span> <span class="n">gqe_solve</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>gqe_solve</code> — learn a target probability distribution using a quantum circuit.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.gqe.gqe_solve" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">gqe_solve</span><span class="p">(</span><span class="n">ansatz</span><span class="p">,</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Solve an optimization problem using a Generative Quantum Eigensolver approach.</p>
+<p>GQE uses generative learning to find the ground state or approximate 
+the probability distribution of a Hamiltonian.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/gqe.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">gqe_solve</span><span class="p">(</span>
+    <span class="n">ansatz</span><span class="p">:</span> <span class="n">Circuit</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve an optimization problem using a Generative Quantum Eigensolver approach.</span>
+
+<span class="sd">    GQE uses generative learning to find the ground state or approximate </span>
+<span class="sd">    the probability distribution of a Hamiltonian.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">param_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ansatz</span><span class="o">.</span><span class="n">parameters</span><span class="p">)}</span>
+        <span class="n">qc</span> <span class="o">=</span> <span class="n">ansatz</span><span class="o">.</span><span class="n">bind_parameters</span><span class="p">(</span><span class="n">param_map</span><span class="p">)</span>
+
+        <span class="c1"># Forward pass: Generate samples from the quantum state</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mz&quot;</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">qc</span><span class="o">.</span><span class="n">gates</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># The loss function compares generated distribution to target properties</span>
+        <span class="k">return</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;scipy is required for gqe_solve.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize with random parameters</span>
+    <span class="n">n_params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ansatz</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+    <span class="n">initial_params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_params</span>
+
+    <span class="k">if</span> <span class="n">optimizer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;COBYLA&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;fun&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;fun&quot;</span><span class="p">,</span> <span class="n">res</span><span class="p">),</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">initial_params</span><span class="p">),</span>
+        <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">res</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><hr />
+<h2 id="differentiable-programming">Differentiable Programming</h2>
+<h3 id="parameter-shift-gradients">Parameter-Shift Gradients</h3>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="hlquantum.algorithms.grad"></a>
+    <div class="doc doc-contents first">
+
+        <p>hlquantum.algorithms.grad
+~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p>Gradient calculation for quantum circuits using the Parameter Shift Rule.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="hlquantum.algorithms.grad.compute_gradient" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">compute_gradient</span> <span class="o">=</span> <span class="n">parameter_shift_gradient</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Alias for :func:<code>parameter_shift_gradient</code> — compute quantum circuit gradients.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="hlquantum.algorithms.grad.parameter_shift_gradient" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">parameter_shift_gradient</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">parameter_values</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Calculate the gradient of a circuit's expectation value using the Parameter Shift Rule.</p>
+<p>The formula is: df/dθ = 0.5 * [f(θ + π/2) - f(θ - π/2)]</p>
+<h4 id="hlquantum.algorithms.grad.parameter_shift_gradient--parameters">Parameters</h4>
+<p>circuit : Circuit
+    The parameterized circuit.
+parameter_values : dict
+    The current values for all parameters in the circuit.
+shots : int
+    Number of shots for each evaluation.
+**kwargs
+    Additional arguments for the runner.</p>
+<h4 id="hlquantum.algorithms.grad.parameter_shift_gradient--returns">Returns</h4>
+<p>dict
+    A mapping from parameter name to its gradient value.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>hlquantum/algorithms/grad.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">parameter_shift_gradient</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">:</span> <span class="n">Circuit</span><span class="p">,</span>
+    <span class="n">parameter_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">shots</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the gradient of a circuit&#39;s expectation value using the Parameter Shift Rule.</span>
+
+<span class="sd">    The formula is: df/dθ = 0.5 * [f(θ + π/2) - f(θ - π/2)]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    circuit : Circuit</span>
+<span class="sd">        The parameterized circuit.</span>
+<span class="sd">    parameter_values : dict</span>
+<span class="sd">        The current values for all parameters in the circuit.</span>
+<span class="sd">    shots : int</span>
+<span class="sd">        Number of shots for each evaluation.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        Additional arguments for the runner.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        A mapping from parameter name to its gradient value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># Get all unique parameters in the circuit</span>
+    <span class="n">circuit_params</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parameters</span>
+    <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit_params</span><span class="p">]</span>
+
+    <span class="c1"># Normalise parameter_values keys to strings</span>
+    <span class="n">normalised_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parameter_values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span>
+        <span class="n">normalised_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">parameter_values</span> <span class="o">=</span> <span class="n">normalised_values</span>  <span class="c1"># type: ignore[assignment]</span>
+
+    <span class="c1"># Ensure all required values are provided</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">param_names</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameter_values</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing parameter values for: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">circuit_params</span><span class="p">:</span>
+        <span class="c1"># 1. Plus shift: θ + π/2</span>
+        <span class="n">plus_values</span> <span class="o">=</span> <span class="n">parameter_values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">plus_values</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_values</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">+</span> <span class="n">shift</span>
+        <span class="n">plus_qc</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">bind_parameters</span><span class="p">(</span><span class="n">plus_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mz&quot;</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">plus_qc</span><span class="o">.</span><span class="n">gates</span><span class="p">):</span>
+            <span class="n">plus_qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+        <span class="n">plus_result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">plus_qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">shots</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">e_plus</span> <span class="o">=</span> <span class="n">plus_result</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">()</span>
+
+        <span class="c1"># 2. Minus shift: θ - π/2</span>
+        <span class="n">minus_values</span> <span class="o">=</span> <span class="n">parameter_values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">minus_values</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_values</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">-</span> <span class="n">shift</span>
+        <span class="n">minus_qc</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="n">bind_parameters</span><span class="p">(</span><span class="n">minus_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;mz&quot;</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">minus_qc</span><span class="o">.</span><span class="n">gates</span><span class="p">):</span>
+            <span class="n">minus_qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+        <span class="n">minus_result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">minus_qc</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">shots</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">e_minus</span> <span class="o">=</span> <span class="n">minus_result</span><span class="o">.</span><span class="n">expectation_value</span><span class="p">()</span>
+
+        <span class="c1"># df/dθ = 0.5 * (E_plus - E_minus)</span>
+        <span class="n">grads</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">e_plus</span> <span class="o">-</span> <span class="n">e_minus</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">grads</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.tabs", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
