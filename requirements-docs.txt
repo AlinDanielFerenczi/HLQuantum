@@ -1,0 +1,4 @@
+.[all]
+mkdocs
+mkdocs-material
+mkdocstrings[python]

@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements-docs.txt
       - run: mkdocs gh-deploy --force
