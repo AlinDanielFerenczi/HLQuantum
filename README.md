@@ -1,6 +1,8 @@
 # HLQuantum
 
-**HLQuantum** (High Level Quantum) is a high-level Python package designed to simplify working with quantum hardware. Write your quantum logic once and run it on any supported backend.
+**HLQuantum** (High Level Quantum) is a human oriented high-level Python package designed to simplify working with quantum algorithms and developing complex systems.
+
+[![Qiskit Ecosystem](https://qisk.it/e-50bd99f2)](https://qisk.it/e)
 
 ## Features
 
