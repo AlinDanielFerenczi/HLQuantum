@@ -201,6 +201,14 @@ See the [MCP Documentation](docs/mcp.md) for full configuration and examples.
 
 ## Backend Examples
 
+For detailed configuration guides including how to set up access keys and tokens for hardware access, see the specific backend documentation:
+- [Amazon Braket](docs/backends/braket.md)
+- [Cirq](docs/backends/cirq.md)
+- [CUDA-Q](docs/backends/cudaq.md)
+- [IonQ](docs/backends/ionq.md)
+- [PennyLane](docs/backends/pennylane.md)
+- [Qiskit](docs/backends/qiskit.md)
+
 ### CUDA-Q
 
 ```python

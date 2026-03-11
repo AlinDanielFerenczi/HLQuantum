@@ -29,6 +29,13 @@ nav:
           - Workflows: api/workflows.md
           - Transpiler: api/transpiler.md
           - Mitigation: api/mitigation.md
+    - Backend Configurations:
+          - Amazon Braket: backends/braket.md
+          - Cirq: backends/cirq.md
+          - CUDA-Q: backends/cudaq.md
+          - IonQ: backends/ionq.md
+          - PennyLane: backends/pennylane.md
+          - Qiskit: backends/qiskit.md
     - GPU Acceleration: gpu.md
     - AI-Driven Quantum (MCP): mcp.md
     - Examples: examples.md
