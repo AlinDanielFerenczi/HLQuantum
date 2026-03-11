@@ -1,4 +1,4 @@
 .[all]
-mkdocs
+mkdocs<2
 mkdocs-material
 mkdocstrings[python]
